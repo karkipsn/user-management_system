@@ -14,8 +14,5 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 
 
-
-
-
 INSERT INTO users (`user_id`,`first_name`,`last_name`,`user_name`,`user_email`,`user_pass`,`joining_date`) 
 VALUES ('1','psn','karki','psn','psn@psn.com','psn','5/28/2018')
