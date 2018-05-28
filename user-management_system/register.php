@@ -1,30 +1,25 @@
 <?php
 session_start();
 
-require_once 'database.php';
 require_once 'user.php';
 
 $user = new USER();
 
 if($user->is_loggedin()!="")
 {
-	$user->redirect('index.php');
+	$user->redirect('home.php');
 }
-
 if(isset($_POST['register_btn'])){
-
     $fname = strip_tags($_POST['firstname']);
     $lname = strip_tags($_POST['lastname']);
-    $uname = strip_tags($_POST['username']);
 	$umail = strip_tags($_POST['email']);
 	$upass = strip_tags($_POST['password']);
+	$cpass = strip_tags($_POST['confirm_password']);
 
 	if($fname=="")	{
 		$error[] = "provide firstname !";	
 	}else if($lname=="")	{
 		$error[] = "provide lastname !";	
-	}else if($uname=="")	{
-		$error[] = "provide username !";	
 	}
 	else if($umail=="")	{
 		$error[] = "provide email id !";	
@@ -35,27 +30,29 @@ if(isset($_POST['register_btn'])){
 	else if($upass=="")	{
 		$error[] = "provide password !";
 	}
+
 	else if(strlen($upass) < 6){
 		$error[] = "Password must be atleast 6 characters";	
+	}
+	else if($upass!= $cpass)	{
+		$error[] = "Passwords dosen't match !";
 	}
 	else
 	{	
 		try
 		{
-			$stmt = $user->runQuery("SELECT user_name, user_email FROM users WHERE user_name=:uname OR user_email=:umail");
-			$stmt->execute(array(':uname'=>$uname, ':umail'=>$umail));
+			$stmt = $user->runQuery("SELECT  user_email FROM users WHERE  user_email=:umail");
+			$stmt->execute(array(':umail'=>$umail));
 			$row=$stmt->fetch(PDO::FETCH_ASSOC);
 				
-			if($row['user_name']==$uname) {
-				$error[] = "sorry username already taken !";
-			}
-			else if($row['user_email']==$umail) {
+			 if($row['user_email']==$umail) {
 				$error[] = "sorry email id already taken !";
 			}
 			else
 			{
-				if($user->register($fname,$lname,$uname,$umail,$upass)){	
+				if($user->register($fname,$lname,$umail,$upass)){	
 					$user->redirect('register.php?joined');
+					echo 'Thank you for registering .';
 				}
 			}
 		}
@@ -64,9 +61,8 @@ if(isset($_POST['register_btn'])){
 			echo $e->getMessage();
 		}
 	}
-}
+} 
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -82,7 +78,28 @@ if(isset($_POST['register_btn'])){
 	</div>
 	<form method="post" action="register.php"   >
 
-		<php echo display_error(); ?>
+		  <?php
+			if(isset($error))
+			{
+			 	foreach($error as $error)
+			 	{
+					 ?>
+                     <div class="error">
+                       <?php echo $error; ?>
+                     </div>
+                     <?php
+				}
+			}
+			else if(isset($_GET['joined']))
+			{
+				 ?>
+                 <div class="error">
+                       Successfully registered <a href='login.php'>login</a> here
+                 </div>
+                 <?php
+			}
+			?>
+
 
 			<div class="input-group">
 				<label>First Name</label>
@@ -96,11 +113,6 @@ if(isset($_POST['register_btn'])){
 				
 			</div>
 
-			<div class="input-group">
-				<label>Username</label>
-				<input type="text" name="username"  required>
-				
-			</div>
 			<div class="input-group">
 				<label>Email</label>
 				<input type="email" name="email"  required>
