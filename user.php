@@ -54,16 +54,23 @@ class USER{
 			$harray[] =$userRow['user_id'];
 			$harray[]=$userRow['user_email'];
 
+			if($stmt->rowCount() == 1)
+			{
+
+               if($userRow['user_email']==$umail) {
+				$error[] = "sorry email id already taken !";
+			}
+
 				if(password_verify($upass, $userRow['user_pass']))
 				{
-				//_SESSION['user_session'] = $userRow['user_id'];
-					
+					$_SESSION['user_session'] = $userRow['user_id'];
 					return $harray;
 				}
 				else
 				{
-					return 0;            
+					return 0;
 				}
+			}
 			
 		}
 		catch(PDOException $e)
@@ -71,6 +78,7 @@ class USER{
 			echo $e->getMessage();
 		}
 	}
+
 	
 
 	public function is_loggedin($sess)

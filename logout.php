@@ -5,7 +5,7 @@
 	$user_logout = new USER();
 	$_SESSION['user_session'][]=$sess;
 	
-	if($user_logout->is_loggedin()!="")
+	if($user_logout->is_loggedin($_SESSION['user_session'])!="")
 	{  
 		$user_logout->redirect('home.php');
 		
