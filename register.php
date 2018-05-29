@@ -5,11 +5,7 @@ require_once 'user.php';
 
 $user = new USER();
 
-if($user->is_loggedin()!="")
-{
-	$user->redirect('home.php');
-}
- $fname=$lname=$umail=$upass=$cpass = "";
+
 
 if(isset($_POST['register_btn'])){
 
@@ -127,7 +123,7 @@ if(isset($_POST['register_btn'])){
 		{
 			?>
 			<div class="error">
-				Successfully registered <a href='login.php'>login</a> here
+				Successfully registered <a href='home.php'>login</a> here
 			</div>
 			<?php
 		}
