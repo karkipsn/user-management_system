@@ -12,7 +12,7 @@
 		<h2>User Management System</h2>
 		<h4>Register</h4>
 	</div>
-	<form method="post"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">   
+	<form method="post"  action="register_fn.php">   
 
 		<?php
 		if(isset($error))

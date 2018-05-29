@@ -19,55 +19,47 @@ if(isset($_POST['register_btn'])){
 //$fname = filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_STRING);
 	    
 	if($fname=="")	{
-		$error[] = "provide firstname !";	
+		$error = "provide firstname !";	
 	}
 	elseif(!filter_var($fname, FILTER_SANITIZE_STRING))	{
-		$error[] = "Please enter valid first name"; 
+		$error = "Please enter valid first name"; 
 	}
 	else if($lname=="")	{
-		$error[] = "provide lastname !";	
+		$error = "provide lastname !";	
 	}
 	elseif(!filter_var($lname, FILTER_SANITIZE_STRING))	{
-		$error[] = "Please enter  valid last name"; 
+		$error = "Please enter  valid last name"; 
 	}
 	
 	else if($umail=="")	{
-		$error[] = "provide email id !";	
+		$error = "provide email id !";	
 	}
 	else if(!filter_var($umail, FILTER_VALIDATE_EMAIL))	{
-		$error[] = 'Please enter a valid email address !';
+		$error = 'Please enter a valid email address !';
 	}
 	else if($upass=="")	{
-		$error[] = "provide password !";
+		$error = "provide password !";
 	}
 	elseif (!filter_var($upass,FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9_\]\[\?\/\<\~\#\`\@\$%\^&\*\(\)\+=\}\|:\";\'\,>\{]{4,20}$/")))){
-    $error[]= "Please enter a valid password.";
+    $error= "Please enter a valid password.";
      }
 	else if(strlen($upass) < 6){
-		$error[] = "Password must be atleast 6 characters";	
+		$error = "Password must be atleast 6 characters";	
 	}
 	else if($upass!= $cpass)	{
-		$error[] = "Passwords dosen't match !";
+		$error = "Passwords dosen't match !";
 	}
-	else
+	elseif($user->email_validation($umail)!="")
 	{	
-		try
-		{
-			$stmt = $user->runQuery("SELECT  user_email FROM users WHERE  user_email=:umail");
-			$stmt->execute(array(':umail'=>$umail));
-			$row=$stmt->fetch(PDO::FETCH_ASSOC);
+		//$user->email_validation($umail);
+		$error = "Email already exists !";
+		$user->redirect('register.php');
 
-			
-				if($user->register($fname,$lname,$umail,$upass)){	
+	}
+	elseif ($user->register($fname,$lname,$umail,$upass)){	
 					$user->redirect('register.php?joined');
 					echo 'Thank you for registering .';
 				
 			}
-		}
-		catch(PDOException $e)
-		{
-			echo $e->getMessage();
-		}
-	}
 } 
 ?> 

@@ -18,7 +18,7 @@ class USER{
 		return $stmt;
 	}
 
-	public function register($fname,$lname,$umail,$upass){
+	 public function register($fname,$lname,$umail,$upass){
 		try
 		{
 			$new_password = password_hash($upass, PASSWORD_DEFAULT);
@@ -38,7 +38,30 @@ class USER{
 		catch(PDOException $e)
 		{
 			echo $e->getMessage();
-		}	
+		}
+
+	}
+
+	public function email_validation($umail){
+		try{
+
+		$stmt = $this->conn->prepare("SELECT  user_email FROM users WHERE user_email=:umail ");
+			$stmt->execute(array(':umail'=>$umail));
+			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+
+			if($stmt->rowCount() == 1){
+
+               if($userRow['user_email']==$umail) {
+				$error[] = "sorry email id already taken !";
+				return true;
+				
+			}}
+		}
+			
+			catch(PDOException $e)
+		{
+			echo $e->getMessage();
+		}
 
 	}
 
@@ -51,19 +74,15 @@ class USER{
 			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
 			$harray = [];
+
+			if($stmt->rowCount() == 1){
+
 			$harray[] =$userRow['user_id'];
 			$harray[]=$userRow['user_email'];
-
-			if($stmt->rowCount() == 1)
-			{
-
-               if($userRow['user_email']==$umail) {
-				$error[] = "sorry email id already taken !";
-			}
-
+			
 				if(password_verify($upass, $userRow['user_pass']))
 				{
-					$_SESSION['user_session'] = $userRow['user_id'];
+					//$_SESSION['user_session'] = $userRow['user_id'];
 					return $harray;
 				}
 				else

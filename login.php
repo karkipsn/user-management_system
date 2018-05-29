@@ -5,6 +5,7 @@ require_once("user.php");
 
 $login = new USER();
 
+
 if(isset($_POST['login_btn']))
 {
 	$umail = strip_tags($_POST['email']);
@@ -24,9 +25,9 @@ if(isset($_POST['login_btn']))
 		if (!$resp->isSuccess()) {
 
 			$error = " Unsigned captcha !";			
-		}
+		}}
 		
-		$session_check=$login->login($umail,$upass);
+		$session_check[]=$login->login($umail,$upass);
 
 		if($session_check==0)
 		{
@@ -35,15 +36,16 @@ if(isset($_POST['login_btn']))
 		}
 		else
 		{
-			$_SESSION['user_session']=$session_check;
-			$login->redirect('home.php');
-			
-		}	}
-		
+			$_SESSION['user_session']= $session_check;
+
+			$login->redirect('home.php');;
+		}
 		if($login->is_loggedin($_SESSION['user_session'])!="")
 		{
 			$login->redirect('home.php');
-		}
+		}	
+
 	}
+	
 	?>
 

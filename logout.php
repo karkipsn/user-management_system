@@ -3,7 +3,7 @@
 	require_once('user.php');
 	
 	$user_logout = new USER();
-	$_SESSION['user_session'][]=$sess;
+	// $_SESSION['user_session']=$sess;
 	
 	if($user_logout->is_loggedin($_SESSION['user_session'])!="")
 	{  
@@ -13,6 +13,6 @@
 	if(isset($_GET['logout']) && $_GET['logout']=="true")
 	{
 		$user_logout->logout($sess);
-		$user_logout->redirect('login.php');
+		$user_logout->redirect('index.php');
 	}
 	?>
