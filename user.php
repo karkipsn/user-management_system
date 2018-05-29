@@ -50,18 +50,21 @@ class USER{
 			$stmt->execute(array(':umail'=>$umail));
 			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
-			if($stmt->rowCount() == 1)
-			{
+			$harray = [];
+			$harray[] =$userRow['user_id'];
+			$harray[]=$userRow['user_email'];
+
 				if(password_verify($upass, $userRow['user_pass']))
 				{
-					$_SESSION['user_session'] = $userRow['user_id'];
-					return true;
+				//_SESSION['user_session'] = $userRow['user_id'];
+					
+					return $harray;
 				}
 				else
 				{
-					return false;
+					return 0;            
 				}
-			}
+			
 		}
 		catch(PDOException $e)
 		{
@@ -69,9 +72,10 @@ class USER{
 		}
 	}
 	
-	public function is_loggedin()
+
+	public function is_loggedin($sess)
 	{
-		if(isset($_SESSION['user_session']))
+		if(isset($sess))
 		{
 			return true;
 		}
@@ -82,10 +86,10 @@ class USER{
 		header("Location: $url");
 	}
 	
-	public function logout()
+	public function logout($sess)
 	{
 		session_destroy();
-		unset($_SESSION['user_session']);
+		unset($sess);
 		return true;
 	}
 

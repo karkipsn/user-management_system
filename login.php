@@ -4,10 +4,7 @@ session_start();
 require_once("user.php");
 
 $login = new USER();
-if($login->is_loggedin()!="")
-{
-	$login->redirect('home.php');
-}
+
 
 
 if(isset($_POST['login_btn']))
@@ -29,16 +26,25 @@ if(isset($_POST['login_btn']))
 		if (!$resp->isSuccess()) {
 
 			$error = " Unsigned captcha !";			
-		}	
+		}
+		
+		$session_check=$login->login($umail,$upass);
 
-		elseif($login->login($umail,$upass))
+		if($session_check==0)
 		{
-			$login->redirect('home.php');
+			$error = "Email and password dosen't match !";
+			
 		}
 		else
 		{
-			$error = "Email and password dosen't match !";
+			$_SESSION['user_session']=$session_check;
+			$login->redirect('home.php');
+			
 		}	}
+		if($login->is_loggedin($_SESSION['user_session'])!="")
+{
+	$login->redirect('home.php');
+}
 	}
 	?>
 
@@ -66,7 +72,7 @@ if(isset($_POST['login_btn']))
                 <?php
 			}
 		?>
-
+		 
 			<div class="input-group">
 				<label>Email</label>
 				<input type="text" name="email" placeholder=" E mail ID" required >

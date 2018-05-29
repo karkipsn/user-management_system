@@ -6,12 +6,12 @@
 	$auth_user = new USER();
 	
 	
-	$user_id = $_SESSION['user_session'];
+	// $user_id = $_SESSION['user_session'];
 	
-	$stmt = $auth_user->runQuery("SELECT * FROM users WHERE user_id=:user_id");
-	$stmt->execute(array(":user_id"=>$user_id));
+	// $stmt = $auth_user->runQuery("SELECT * FROM users WHERE user_id=:user_id");
+	// $stmt->execute(array(":user_id"=>$user_id));
 	
-	$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+	// $userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -43,7 +43,8 @@
 		<?php  if (isset($_SESSION['user_session'])) : ?>
 
 			<div class="header">
-				<h3>Welcome <strong><?php echo($userRow['user_email']); ?></strong>!!!</h3>
+				<!-- <h3>Welcome <strong><?php echo($userRow['user_email']); ?></strong>!!!</h3> -->
+				<h3>Welcome </h3>
 				<h5> Enjoy Your Day</h5>
 			</div>
 
