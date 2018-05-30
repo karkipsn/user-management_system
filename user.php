@@ -29,7 +29,7 @@ class USER{
 			$stmt->bindparam(":fname", $fname);
 			$stmt->bindparam(":lname", $lname);
 			$stmt->bindparam(":umail", $umail);
-			$stmt->bindparam(":upass", $new_password);										  
+			$stmt->bindparam(":upass", $upass);										  
 
 			$stmt->execute();	
 			
@@ -52,7 +52,6 @@ class USER{
 			if($stmt->rowCount() == 1){
 
                if($userRow['user_email']==$umail) {
-				$error[] = "sorry email id already taken !";
 				return true;
 				
 			}}
@@ -67,20 +66,18 @@ class USER{
 
 	public function login($umail,$upass)
 	{
-		try
-		{
+		
 			$stmt = $this->conn->prepare("SELECT user_id, user_email, user_pass FROM users WHERE user_email=:umail ");
 			$stmt->execute(array(':umail'=>$umail));
 			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
 
-			$harray = [];
-
+			   $harray = "";
 			if($stmt->rowCount() == 1){
 
-			$harray[] =$userRow['user_id'];
-			$harray[]=$userRow['user_email'];
+			    $harray=$userRow['user_email'];
+			    $pw = $userRow['user_pass'];
 			
-				if(password_verify($upass, $userRow['user_pass']))
+				if(password_verify($upass,$pw))
 				{
 					//$_SESSION['user_session'] = $userRow['user_id'];
 					return $harray;
@@ -88,14 +85,7 @@ class USER{
 				else
 				{
 					return 0;
-				}
-			}
-			
-		}
-		catch(PDOException $e)
-		{
-			echo $e->getMessage();
-		}
+				}}
 	}
 
 	

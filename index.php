@@ -22,17 +22,17 @@
 			<?php
 		}
 		?>
-		
+
 		<div class="input-group">
 			<label>Email</label>
 			<input type="text" name="email" placeholder=" E mail ID" required >
 		</div>
 		<div class="input-group">
 			<label>Password</label>
-			<input type="password" name="password" placeholder="Your Password">
+			<input type="password" name="password" placeholder="Your Password" required>
 		</div>
 
-		<div class="g-recaptcha" data-sitekey="6Lck1VsUAAAAAO4T5pV7tvRnPzC1G40jLuQ68Be7"></div>
+		<div class="g-recaptcha" data-sitekey="6Lck1VsUAAAAAO4T5pV7tvRnPzC1G40jLuQ68Be7" required></div>
 
 		<div class="input-group">
 			<button type="submit" class="btn" name="login_btn">Login</button>

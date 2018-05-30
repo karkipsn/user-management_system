@@ -49,7 +49,7 @@ if(isset($_POST['register_btn'])){
 	else if($upass!= $cpass)	{
 		$error = "Passwords dosen't match !";
 	}
-
+    else{
 	$userv=$user->email_validation($umail);
 	if($userv==true)
 	{	
@@ -60,5 +60,5 @@ if(isset($_POST['register_btn'])){
 		$user->register($fname,$lname,$umail,$upass);
 		$user->redirect('register.php?joined');
 
-	} }
+	} }}
 	?> 

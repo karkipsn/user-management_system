@@ -15,7 +15,7 @@
 	<form method="post"  action="register_fn.php">   
 
 		<?php
-		if(isset($error))
+		if(isset($_POST['$error']))
 		{			
 				?>
 				<div class="error">
