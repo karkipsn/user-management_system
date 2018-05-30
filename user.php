@@ -29,7 +29,7 @@ class USER{
 			$stmt->bindparam(":fname", $fname);
 			$stmt->bindparam(":lname", $lname);
 			$stmt->bindparam(":umail", $umail);
-			$stmt->bindparam(":upass", $upass);										  
+			$stmt->bindparam(":upass", $new_password);										  
 
 			$stmt->execute();	
 			
@@ -87,6 +87,24 @@ class USER{
 					return 0;
 				}}
 	}
+	public function update_password($umail,$upass){
+
+			$stmt = $this->conn->prepare("SELECT user_id, user_email, user_pass FROM users WHERE user_email=:umail ");
+			$stmt->execute(array(':umail'=>$umail));
+			$userRow=$stmt->fetch(PDO::FETCH_ASSOC);
+
+			  
+			if($stmt->rowCount() == 1){
+						$new_password = password_hash($userRow['user_pass'], PASSWORD_DEFAULT);
+
+				  $stmt = $this->conn->prepare("UPDATE users  SET user_pass=:upass WHERE user_email=:umail");
+                  $stmt->execute(array(":upass"=>$new_password,"umail"=>$userRow['user_email']));
+                  return $stmt;
+
+			}
+
+
+	}
 
 	
 
@@ -109,6 +127,7 @@ class USER{
 		unset($sess);
 		return true;
 	}
+	
 
 }
 

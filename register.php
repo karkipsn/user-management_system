@@ -15,7 +15,8 @@
 	<form method="post"  action="register_fn.php">   
 
 		<?php
-		if(isset($_POST['$error']))
+		
+		if(isset($error))
 		{			
 				?>
 				<div class="error">
@@ -41,7 +42,6 @@
 			<?php
 		}
 		?>
-
 
 		<div class="input-group">
 			<label>First Name</label>
