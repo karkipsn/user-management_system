@@ -16,21 +16,27 @@
 
 		<?php
 		if(isset($error))
-		{
-			foreach($error as $error)
-			{
+		{			
 				?>
 				<div class="error">
 					<?php echo $error; ?>
 				</div>
 				<?php
-			}
+			
 		}
 		else if(isset($_GET['joined']))
 		{
 			?>
 			<div class="error">
 				Successfully registered <a href='index.php'>login</a> here
+			</div>
+			<?php
+		}
+		else if(isset($_GET['invalid']))
+		{
+		?>
+		<div class="error">
+				Email already in use 
 			</div>
 			<?php
 		}

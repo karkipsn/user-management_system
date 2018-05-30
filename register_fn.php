@@ -9,15 +9,15 @@ $user = new USER();
 
 if(isset($_POST['register_btn'])){
 
-	    $fname = strip_tags($_POST['firstname']);
-	    $lname = strip_tags($_POST['lastname']);
-	    $umail = strip_tags($_POST['email']);
-	    $upass = strip_tags($_POST['password']);
-	    $cpass = strip_tags($_POST['confirm_password']);
-   
+	$fname = strip_tags($_POST['firstname']);
+	$lname = strip_tags($_POST['lastname']);
+	$umail = strip_tags($_POST['email']);
+	$upass = strip_tags($_POST['password']);
+	$cpass = strip_tags($_POST['confirm_password']);
+
 
 //$fname = filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_STRING);
-	    
+
 	if($fname=="")	{
 		$error = "provide firstname !";	
 	}
@@ -41,25 +41,24 @@ if(isset($_POST['register_btn'])){
 		$error = "provide password !";
 	}
 	elseif (!filter_var($upass,FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^[a-zA-Z0-9_\]\[\?\/\<\~\#\`\@\$%\^&\*\(\)\+=\}\|:\";\'\,>\{]{4,20}$/")))){
-    $error= "Please enter a valid password.";
-     }
+		$error= "Please enter a valid password.";
+	}
 	else if(strlen($upass) < 6){
 		$error = "Password must be atleast 6 characters";	
 	}
 	else if($upass!= $cpass)	{
 		$error = "Passwords dosen't match !";
 	}
-	elseif($user->email_validation($umail)!="")
-	{	
-		//$user->email_validation($umail);
-		$error = "Email already exists !";
-		$user->redirect('register.php');
 
-	}
-	elseif ($user->register($fname,$lname,$umail,$upass)){	
-					$user->redirect('register.php?joined');
-					echo 'Thank you for registering .';
-				
-			}
-} 
-?> 
+	$userv=$user->email_validation($umail);
+	if($userv==true)
+	{	
+		$user->redirect('register.php?invalid');
+		
+
+	}else{
+		$user->register($fname,$lname,$umail,$upass);
+		$user->redirect('register.php?joined');
+
+	} }
+	?> 
