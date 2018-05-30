@@ -36,7 +36,7 @@
 		{
 		?>
 		<div class="error">
-				Email already in use 
+				Email already in use. Click <a href='register.php'>Refresh</a> and try with another mail address
 			</div>
 			<?php
 		}
