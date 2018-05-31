@@ -84,7 +84,7 @@ class USER{
 				}
 				else
 				{
-					return 0;
+					return $pw;
 				}}
 	}
 	public function update_password($umail,$upass){
@@ -95,10 +95,10 @@ class USER{
 
 			  
 			if($stmt->rowCount() == 1){
-						$new_password = password_hash($userRow['user_pass'], PASSWORD_DEFAULT);
+						$new_password = password_hash($upass, PASSWORD_DEFAULT);
 
 				  $stmt = $this->conn->prepare("UPDATE users  SET user_pass=:upass WHERE user_email=:umail");
-                  $stmt->execute(array(":upass"=>$new_password,"umail"=>$userRow['user_email']));
+                  $stmt->execute(array(":umail"=>$user_email, ":upass"=>$new_password));
                   return $stmt;
 
 			}

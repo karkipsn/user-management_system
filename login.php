@@ -26,6 +26,8 @@ if(isset($_POST['login_btn']))
 		else{
 
 			$session_check=$login->login($umail,$upass);
+			// var_dump($session_check);
+			// exit();
 
 			if($session_check == '')
 			{

@@ -12,12 +12,21 @@
 	</div>
 	<form method="post" action="login.php">
 
-		<?php
-		if(isset($error))
+		  <?php
+		if(isset($_GET['updated']))
 		{
 			?>
 			<div class="error">
-				<?php echo $error; ?> 
+				Successfully Updated <a href='index.php'>login</a> here
+			</div>
+			<?php
+		}
+		elseif(isset($_GET['failed'])){
+		
+			?>
+		
+			<div class="error">
+				Successfully Updated <a href='index.php'>login</a> here
 			</div>
 			<?php
 		}

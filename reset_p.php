@@ -12,24 +12,14 @@ if(isset($_POST['reset_btn']))
 
 	
 		if($reset->update_password($umail,$upass)==true){
-			$msg = 'Password reset successful';
-			$reset->redirect('index.php');
+		
+			$reset->redirect('index.php?updated');
 		}
 		else{
-			$msg = 'Password reset failed';
+			$reset->redirect('index.php?failed');
 		}
 	}
 
 
 ?>
-
-<?php
-		if(isset($msg))
-		{
-			?>
-			<div class="error">
-				<?php echo $msg; ?> 
-			</div>
-			<?php
-		}
-		?>
+ 
