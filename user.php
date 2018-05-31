@@ -84,7 +84,7 @@ class USER{
 				}
 				else
 				{
-					return $pw;
+					return 0;
 				}}
 	}
 	public function update_password($umail,$upass){
