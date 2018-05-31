@@ -30,6 +30,16 @@
 			</div>
 			<?php
 		}
+		elseif(isset($_GET['login'])){
+		
+			?>
+		
+			<div class="error">
+				Please login to access <a href='index.php'>login</a> 
+			</div>
+			<?php
+		}
+		
 		?>
 
 		<div class="input-group">

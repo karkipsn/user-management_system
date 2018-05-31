@@ -9,6 +9,6 @@
 	if(!$session->is_loggedin($_SESSION['user_session']))
 	{
 		// session no set redirects to login page
-		$session->redirect('login.php');
+		$session->redirect('index.php?login');
 	}
 	?>

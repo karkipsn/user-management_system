@@ -38,12 +38,11 @@ require_once("session.php");
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Upload</a></li>
+            <<li><a href="#">Upload</a></li>
             <li><a href="#">Delete</a></li>
             <li><a href="#">Create</a></li>
           </ul>
         </li>
-        <li><a href="user_home.php">View Users</a></li>
         <li><a href="#">Categories</a></li>
         <li><a href="#">About Us</a></li>
       </ul>
@@ -55,7 +54,7 @@ require_once("session.php");
   </div>
 </nav>
 
-<!-- Container Starts  -->
+
 
 <div class="container">
 <table id="toop" class="table table-bordered">
@@ -78,10 +77,9 @@ require_once("session.php");
        <td><?= $product[$i]['id']?></td>
        <td><img src="<?= $product[$i]['ipic'] ?>" height="92" width="92">
        <div style="margin-top:10px;">By: <a href="#" style="color:blue;"> <?= $product[$i]['uname'] ?></a></div></td>
-       <td><?= $product[$i]['name']?></td>
-       <td><?= $product[$i]['description']?></td>
-       <td><?= $product[$i]['price']?></td>
-       <td><?= $product[$i]['category']?></td>
+       <td><?= $product[$i]['iname']?></td>
+       <td><?= $product[$i]['idetail']?></td>
+       <td><?= $product[$i]['iprice']?></td>
        <td><a href="homeinfo.php?cat=<?=$product[$i]['cid'] ?>&p=<?=$product[$i]['id']?>&q=<?=$product[$i]['uid']?>  ">Want to buy</a></td>
      </tr>
      <?php } ?>

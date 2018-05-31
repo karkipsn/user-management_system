@@ -87,6 +87,13 @@ class USER{
 					return 0;
 				}}
 	}
+	public function read(){
+		$stmt = $this->conn->prepare("SELECT user_id,first_name,last_name,user_email,joining_date FROM users  ORDER BY joining_date  ");
+			$stmt->execute();
+			return $stmt;
+
+
+	}
 	public function update_password($umail,$upass){
 
 			$stmt = $this->conn->prepare("SELECT user_id, user_email, user_pass FROM users WHERE user_email=:umail ");

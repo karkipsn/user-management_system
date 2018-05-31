@@ -2,8 +2,47 @@
 
 require_once("session.php");
 
-?>
-<!DOCTYPE html>
+require_once("user.php");
+$auth_user = new USER();
+
+$u=$auth_user->read();
+
+if($u !=""){
+
+	$num = $u->rowCount();
+
+	if($num>0){
+		$auth_user=array();
+		$auth_user["users"]=array();
+
+    // retrieve our table contents into the array called users
+
+		while ($row = $u->fetch(PDO::FETCH_ASSOC)) {
+
+			extract($row);
+
+			$ujson=array("user_id" => $user_id,
+				"first_name" => $first_name,
+				"last_name" => $last_name,
+				"user_email" => $user_email,
+				"joining_date" => $joining_date);
+
+			array_push($auth_user["users"],$ujson);
+		}
+    //Echo the $results array in a JSON format so that we can
+   //easily handle the results with JavaScript / JQuery
+		// echo json_encode($auth_user);
+
+	}
+	else
+	{
+		echo json_encode(
+			array("message" => "No users found.")
+		);
+	}}
+	?>
+
+	<!DOCTYPE html>
 <html>
 <head>
   <title>Dashboard</title>
@@ -14,7 +53,6 @@ require_once("session.php");
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 
@@ -38,7 +76,7 @@ require_once("session.php");
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Upload</a></li>
+           <li><a href="#">Upload</a></li>
             <li><a href="#">Delete</a></li>
             <li><a href="#">Create</a></li>
           </ul>
@@ -58,40 +96,5 @@ require_once("session.php");
 <!-- Container Starts  -->
 
 <div class="container">
-<table id="toop" class="table table-bordered">
-   <thead>
-     <tr>
-       <th>Item ID</th>
-       <th>ItemImage</th>
-       <th>Item Name</th>
-       <th>Item Description</th>
-       <th>Item Price</th>
-       <th>Category Id</th>
-        <th>Action</th>
-    </tr>
-   </thead>
-
-   <tbody>
-     <?php
-        for ($i = 0;$i<$icount;$i++) { ?>
-     <tr>
-       <td><?= $product[$i]['id']?></td>
-       <td><img src="<?= $product[$i]['ipic'] ?>" height="92" width="92">
-       <div style="margin-top:10px;">By: <a href="#" style="color:blue;"> <?= $product[$i]['uname'] ?></a></div></td>
-       <td><?= $product[$i]['name']?></td>
-       <td><?= $product[$i]['description']?></td>
-       <td><?= $product[$i]['price']?></td>
-       <td><?= $product[$i]['category']?></td>
-       <td><a href="homeinfo.php?cat=<?=$product[$i]['cid'] ?>&p=<?=$product[$i]['id']?>&q=<?=$product[$i]['uid']?>  ">Want to buy</a></td>
-     </tr>
-     <?php } ?>
-   </tbody>
- </table>
-</div>
- <script>
- $(document).ready( function () {
-     $('#toop').DataTable();
- });
- </script>
-</body>
-</html>
+<?php    echo json_encode($auth_user); ?>
+	</div>

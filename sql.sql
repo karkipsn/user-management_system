@@ -12,9 +12,39 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 
 
-
-
-
-
 INSERT INTO users (`user_id`,`first_name`,`last_name`,`user_email`,`user_pass`,`joining_date`) 
 VALUES ('1','psn','karki','psn@psn.com','psn','5/28/2018')
+
+
+
+
+
+-- PRODUCTS TABLE
+-- PRODUCTS
+
+
+CREATE TABLE IF NOT EXISTS `products` (
+  `p_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(15) NOT NULL,
+    `description` varchar(60) NOT NULL,
+  `price` varchar(15) NOT NULL,
+  `category_id` int(15) NOT NULL,
+  `category_name` varchar(255) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`p_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+
+
+
+
+-- Category Table
+-- category
+
+CREATE TABLE IF NOT EXISTS `category` (
+  `c_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(15) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`c_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
