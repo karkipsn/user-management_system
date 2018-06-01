@@ -1,15 +1,9 @@
 <?php
-
-require_once("session.php");
-require_once("products.php");
-
-$ph = new Products();
-
-$pr=$ph->read_products();
-
-
-
+require_once 'session.php';
 ?>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,17 +31,17 @@ $pr=$ph->read_products();
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Products Details</a>
+      <a class="navbar-brand" href="home.php">Products Details</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li ><a href="home.php">Home</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">Upload</a></li>
             <li><a href="#">Delete</a></li>
-            <li><a href="product_create_form.php">Create</a></li>
+            <li class="active"><a href="#">Create</a></li>
           </ul>
         </li>
         <li><a href="user_home.php">View Users</a></li>
@@ -65,45 +59,57 @@ $pr=$ph->read_products();
 <!-- Container Starts  -->
 
 <div class="container">
-<table id="toop" class="table table-bordered">
-	<!-- class is accessed from the datatables imported -->
-   <thead>
-     <tr>
-       <th>Item ID</th>
-       <th>ItemImage</th>
-       <th>Item Name</th>
-       <th>Item Description</th>
-       <th>Item Price</th>
-       <th>Category Id</th>
-       <th>Category Name</th>
-        <th>Action</th>
-    </tr>
-   </thead>
+  <legend><center><h2><b>Product Form</b></h2></center></legend><br>
 
-   <tbody>
-     <?php
-        $i = 0; while ($icount=$pr->fetch(PDO::FETCH_ASSOC)) { ?>
-     <tr>
-       <td><?= $icount['p_id']?></td>
-       <td><img src="<?= $product[$i]['ipic'] ?>" height="92" width="92">
-       <div style="margin-top:10px;">By: <a href="#" style="color:blue;"> <?= $product[$i]['uname'] ?></a></div></td>
-       <td><?= $icount['name']?></td>
-       <td><?= $icount['description']?></td>
-       <td><?= $icount['price']?></td>
-       <td><?= $icount['category_id']?></td>
-       <td><?= $icount['category_name']?></td>
-       <td><a href="homeinfo.php ?>  ">Want to buy</a></td>
-     </tr>
+  <form class="form-horizontal" method="post" action="product_create.php">
 
-     <?php } ?>
-   </tbody>
- </table>
+    
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pname">Products Name:</label>
+      <div class="col-sm-6">
+        <input type="name" class="form-control" id="pname" placeholder="Enter Product name" name="pname">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pdes">Description:</label>
+      <div class="col-sm-6">          
+        <input type="text" class="form-control" id="pdes" placeholder="Products Description" name="pdes">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="pprice">Product Price:</label>
+      <div class="col-sm-6">          
+        <input type="number" class="form-control" id="pprice" placeholder="Products Price" name="pprice">
+      </div>
+    </div>
+      <div class="form-group">
+      <label class="control-label col-sm-2" for="pcat_id">Category Id:</label>
+      <div class="col-sm-6">          
+        <input type="number" class="form-control" id="pcat_id" placeholder="Products Price" name="pcat_id">
+      </div>
+    </div>
+    
+    
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default" name="padd_btn">Submit</button>
+      </div>
+    </div>
+  </form>
+  <?php
+    if(isset($_GET['added']))
+    {
+    ?>
+    <div class="form-group">
+        <center><h4><b> Thanks Product  Is added.</b></h4></center>
+      </div>
+      <?php
+    }
+    ?>
 </div>
- <script>
- $(document).ready( function () {
-     $('#toop').DataTable();
- });
- </script>
+
 </body>
 </html>
 
+</body>
+</html>

@@ -36,8 +36,9 @@ CREATE TABLE IF NOT EXISTS `products` (
 
 
 
-
-
+UPDATE `products` SET `p_id` = '2', `name` = 'Bio', `category_id` = '2', `category_name` = 'Vodka' WHERE `products`.`p_id` = 5;
+-- dropping colum category_name
+ALTER TABLE products DROP COLUMN category_name;
 
 -- Category Table
 -- category
@@ -48,3 +49,9 @@ CREATE TABLE IF NOT EXISTS `category` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`c_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+INSERT INTO `category` (`c_id`, `name`, `created`) VALUES ('1', 'wine', CURRENT_TIMESTAMP);
+INSERT INTO `category` (`c_id`, `name`, `created`) VALUES ('2', 'Vodka', CURRENT_TIMESTAMP);
+INSERT INTO `category` (`c_id`, `name`, `created`) VALUES ('3', 'Rum', CURRENT_TIMESTAMP);
+INSERT INTO `category` (`c_id`, `name`, `created`) VALUES ('4', 'Whisky', CURRENT_TIMESTAMP);
+INSERT INTO `category` (`c_id`, `name`, `created`) VALUES ('5', 'Soft Darinks', CURRENT_TIMESTAMP);

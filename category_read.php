@@ -1,13 +1,11 @@
 <?php
 
 require_once("session.php");
-require_once("products.php");
+require_once("category.php");
 
-$ph = new Products();
+$ch = new Category();
 
-$pr=$ph->read_products();
-
-
+$cr=$ch->read_category();
 
 ?>
 <!DOCTYPE html>
@@ -37,11 +35,11 @@ $pr=$ph->read_products();
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Products Details</a>
+      <a class="navbar-brand" href="home.php">Products Details</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li class="active"><a href="home.php">Home</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -51,7 +49,7 @@ $pr=$ph->read_products();
           </ul>
         </li>
         <li><a href="user_home.php">View Users</a></li>
-        <li><a href="category_read.php">Categories</a></li>
+        <li><a href="#">Categories</a></li>
         <li><a href="#">About Us</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -69,30 +67,19 @@ $pr=$ph->read_products();
 	<!-- class is accessed from the datatables imported -->
    <thead>
      <tr>
-       <th>Item ID</th>
-       <th>ItemImage</th>
-       <th>Item Name</th>
-       <th>Item Description</th>
-       <th>Item Price</th>
-       <th>Category Id</th>
+       <th>Category ID</th>
        <th>Category Name</th>
-        <th>Action</th>
+       
     </tr>
    </thead>
 
    <tbody>
      <?php
-        $i = 0; while ($icount=$pr->fetch(PDO::FETCH_ASSOC)) { ?>
+        $i = 0; while ($cc=$cr->fetch(PDO::FETCH_ASSOC)) { ?>
      <tr>
-       <td><?= $icount['p_id']?></td>
-       <td><img src="<?= $product[$i]['ipic'] ?>" height="92" width="92">
-       <div style="margin-top:10px;">By: <a href="#" style="color:blue;"> <?= $product[$i]['uname'] ?></a></div></td>
-       <td><?= $icount['name']?></td>
-       <td><?= $icount['description']?></td>
-       <td><?= $icount['price']?></td>
-       <td><?= $icount['category_id']?></td>
-       <td><?= $icount['category_name']?></td>
-       <td><a href="homeinfo.php ?>  ">Want to buy</a></td>
+
+       <td><?= $cc['c_id']?></td>
+       <td><?= $cc['name']?></td>
      </tr>
 
      <?php } ?>

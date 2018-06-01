@@ -37,15 +37,25 @@ class Products{
 		return false;
 
 	}
+	public function redirect($url)
+	{
+		header("Location: $url");
+	}
 
 	public function read_products(){
-		$stmt = $this->conn->prepare("SELECT * FROM products ");
-		if($stmt->execute()){
-			return true;
-		}
+		$stmt = $this->conn->prepare("SELECT
+                c.name as category_name, p.p_id, p.name, p.description, p.price, p.category_id
+            FROM
+                 products  p
+                LEFT JOIN
+                    category c
+                        ON p.category_id = c.c_id
+            ORDER BY
+                c.c_id ");
 
-		return false;
+		$stmt->execute();
 
+		return $stmt;
 
 	}
 

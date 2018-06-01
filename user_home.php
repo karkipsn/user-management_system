@@ -33,17 +33,17 @@ require_once("session.php");
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#">Home</a></li>
+					<li class="active"><a href="home.php">Home</a></li>
 					<li class="dropdown">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="#">Products <span class="caret"></span></a>
 						<ul class="dropdown-menu">
 							<li><a href="#">Upload</a></li>
 							<li><a href="#">Delete</a></li>
-							<li><a href="#">Create</a></li>
+							<li><a href="product_create_home.php">Create</a></li>
 						</ul>
 					</li>
-					<li><a href="user_home.php">View Users</a></li>
-					<li><a href="#">Categories</a></li>
+					<li><a href="#">View Users</a></li>
+					<li><a href="category_read.php">Categories</a></li>
 					<li><a href="#">About Us</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
@@ -85,7 +85,7 @@ require_once("session.php");
 						<td class="first_name"> <?php echo $row['first_name']; ?> </td>
 						<td class="last_name"> <?php echo $row['last_name']; ?> </td>
 						<td class="user_email"> <?php echo $row['user_email']; ?> </td>
-						<td class="joining_date"user_iduser_iduser_id> <?php echo $row['joining_date']; ?> </td>
+						<td class="joining_date"> <?php echo $row['joining_date']; ?> </td>
 
 					</tr>
 					<?php $i++; } ?>	
@@ -100,7 +100,7 @@ require_once("session.php");
 			});
 		</script>
 		
-		<!--//displays whole table but not other functions of pagination
+		<!--//displays whole table but not other properties of pagination and others
 		 <script>
 			$(document).ready(function(){
 				$('[data-toggle="tooltip"]').tooltip(); 

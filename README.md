@@ -1,3 +1,3 @@
 # user-management_system
 
-It is a simple registration system with the object oriented concepts in php
+Register and login procedure  with OOP Concepts in PHP and PDO
