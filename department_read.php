@@ -1,11 +1,11 @@
 <?php
 
 require_once("session.php");
-require_once("employee.php");
+require_once("department.php");
 
-$eh = new Employee();
+$dh = new Department();
 
-$er=$eh->read_employee();
+$dr=$dh->read_department();
 
 ?>
 <!DOCTYPE html>
@@ -40,18 +40,17 @@ $er=$eh->read_employee();
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+        <li class="active"><a href="home.php">Home</a></li>
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Employees <span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="home.php">Employees <span class="caret"></span></a>
           <ul class="dropdown-menu">
-          	<li><a href="employee_create_form.php">Create</a></li>
-            <li><a href="employee_update_form.php">Update</a></li>
+            <li><a href="#">Update</a></li>
             <li><a href="#">Delete</a></li>
-            
+            <li><a href="#">Create</a></li>
           </ul>
         </li>
         <li><a href="user_home.php">View Users</a></li>
-        <li><a href="department_read.php">Department</a></li>
+        <li><a href="#">Department</a></li>
         <li><a href="#">About Us</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -69,28 +68,19 @@ $er=$eh->read_employee();
 	<!-- class is accessed from the datatables imported -->
    <thead>
      <tr>
-       <th>EMP ID</th>
-       <!-- <th>ItemImage</th> -->
-       <th>EMP Name</th>
-       <th>EMP Add></th>
-       <th>EMP Depart</th>
-       <th>EMP Title</th>
-       <th>EMP DOB</th>
-        <th>EMP DOJ</th>
+       <th>DEPARTMENT ID</th>
+       <th>DEPARTMENT Name</th>
+      
     </tr>
    </thead>
 
    <tbody>
      <?php
-        $i = 0; while ($rowCount=$er->fetch(PDO::FETCH_ASSOC)) { ?>
+        $i = 0; while ($rowCount=$dr->fetch(PDO::FETCH_ASSOC)) { ?>
      <tr>
-       <td><?= $rowCount['e_id']?></td>
-       <td><?= $rowCount['e_name']?></td>
-       <td><?= $rowCount['e_add']?></td>
-       <td><?= $rowCount['e_depart']?></td>
-       <td><?= $rowCount['e_title']?></td>
-       <td><?= $rowCount['e_dob']?></td>
-       <td><?= $rowCount['e_join_date']?></td>
+       <td><?= $rowCount['d_id']?></td>
+       <td><?= $rowCount['d_name']?></td>
+       
      </tr>
 
      <?php } ?>

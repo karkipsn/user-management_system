@@ -1,11 +1,13 @@
 <?php
 
-require_once("session.php");
-require_once("employee.php");
+require_once("../session.php");
+require_once("products.php");
 
-$eh = new Employee();
+$ph = new Products();
 
-$er=$eh->read_employee();
+$pr=$ph->read_products();
+
+
 
 ?>
 <!DOCTYPE html>
@@ -25,7 +27,7 @@ $er=$eh->read_employee();
 
 </head>
 <body>
-
+	
 	<!-- Navigation Class Starts Here -->
 
 <nav class="navbar navbar-inverse">
@@ -36,22 +38,22 @@ $er=$eh->read_employee();
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Employee Details</a>
+      <a class="navbar-brand" href="#">Products Details</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
+       <li ><a href="../home.php">Home</a></li>
+          <li ><a href="phome.php">PHome</a></li>
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Employees <span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products <span class="caret"></span></a>
           <ul class="dropdown-menu">
-          	<li><a href="employee_create_form.php">Create</a></li>
-            <li><a href="employee_update_form.php">Update</a></li>
+            <li><a href="product_update_form.php">Update</a></li>
             <li><a href="#">Delete</a></li>
-            
+            <li><a href="product_create_form.php">Create</a></li>
           </ul>
         </li>
         <li><a href="user_home.php">View Users</a></li>
-        <li><a href="department_read.php">Department</a></li>
+        <li><a href="category_read.php">Categories</a></li>
         <li><a href="#">About Us</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -69,28 +71,30 @@ $er=$eh->read_employee();
 	<!-- class is accessed from the datatables imported -->
    <thead>
      <tr>
-       <th>EMP ID</th>
+       <th>Item ID</th>
        <!-- <th>ItemImage</th> -->
-       <th>EMP Name</th>
-       <th>EMP Add></th>
-       <th>EMP Depart</th>
-       <th>EMP Title</th>
-       <th>EMP DOB</th>
-        <th>EMP DOJ</th>
+       <th>Item Name</th>
+       <th>Item Description</th>
+       <th>Item Price</th>
+       <th>Category Id</th>
+       <th>Category Name</th>
+        <th>Action</th>
     </tr>
    </thead>
 
    <tbody>
      <?php
-        $i = 0; while ($rowCount=$er->fetch(PDO::FETCH_ASSOC)) { ?>
+        $i = 0; while ($rowCount=$pr->fetch(PDO::FETCH_ASSOC)) { ?>
      <tr>
-       <td><?= $rowCount['e_id']?></td>
-       <td><?= $rowCount['e_name']?></td>
-       <td><?= $rowCount['e_add']?></td>
-       <td><?= $rowCount['e_depart']?></td>
-       <td><?= $rowCount['e_title']?></td>
-       <td><?= $rowCount['e_dob']?></td>
-       <td><?= $rowCount['e_join_date']?></td>
+       <td><?= $rowCount['p_id']?></td>
+     <!--   <td><img src="<?= $product[$i]['ipic'] ?>" height="92" width="92">
+       <div style="margin-top:10px;">By: <a href="#" style="color:blue;"> <?= $product[$i]['uname'] ?></a></div></td> -->
+       <td><?= $rowCount['name']?></td>
+       <td><?= $rowCount['description']?></td>
+       <td><?= $rowCount['price']?></td>
+       <td><?= $rowCount['category_id']?></td>
+       <td><?= $rowCount['category_name']?></td>
+       <td><a href="homeinfo.php ?>  ">Want to buy</a></td>
      </tr>
 
      <?php } ?>

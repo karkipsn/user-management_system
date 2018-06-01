@@ -1,9 +1,13 @@
 <?php
-require_once 'session.php';
+
+require_once("../../session.php");
+require_once("../category.php");
+
+$ch = new Category();
+
+$cr=$ch->read_category();
+
 ?>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,17 +39,17 @@ require_once 'session.php';
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li ><a href="home.php">Home</a></li>
+        <li class="active"><a href="home.php">Home</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Upload</a></li>
+            <li><a href="product_update_form.php">Update</a></li>
             <li><a href="#">Delete</a></li>
-            <li class="active"><a href="#">Create</a></li>
+            <li><a href="product_create_form.php">Create</a></li>
           </ul>
         </li>
         <li><a href="user_home.php">View Users</a></li>
-        <li><a href="category_read.php">Categories</a></li>
+        <li><a href="#">Categories</a></li>
         <li><a href="#">About Us</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -59,57 +63,34 @@ require_once 'session.php';
 <!-- Container Starts  -->
 
 <div class="container">
-  <legend><center><h2><b>Product Form</b></h2></center></legend><br>
+<table id="toop" class="table table-bordered">
+	<!-- class is accessed from the datatables imported -->
+   <thead>
+     <tr>
+       <th>Category ID</th>
+       <th>Category Name</th>
+       
+    </tr>
+   </thead>
 
-  <form class="form-horizontal" method="post" action="product_create.php">
+   <tbody>
+     <?php
+        $i = 0; while ($cc=$cr->fetch(PDO::FETCH_ASSOC)) { ?>
+     <tr>
 
-    
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="pname">Products Name:</label>
-      <div class="col-sm-6">
-        <input type="name" class="form-control" id="pname" placeholder="Enter Product name" name="pname">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="pdes">Description:</label>
-      <div class="col-sm-6">          
-        <input type="text" class="form-control" id="pdes" placeholder="Products Description" name="pdes">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="pprice">Product Price:</label>
-      <div class="col-sm-6">          
-        <input type="number" class="form-control" id="pprice" placeholder="Products Price" name="pprice">
-      </div>
-    </div>
-      <div class="form-group">
-      <label class="control-label col-sm-2" for="pcat_id">Category Id:</label>
-      <div class="col-sm-6">          
-        <input type="number" class="form-control" id="pcat_id" placeholder="Products Price" name="pcat_id">
-      </div>
-    </div>
-    
-    
-    <div class="form-group">        
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default" name="padd_btn">Submit</button>
-      </div>
-    </div>
-  </form>
-  <?php
-    if(isset($_GET['added']))
-    {
-    ?>
-    <div class="form-group">
-        <center><h4><b> Thanks Product  Is added.</b></h4></center>
-      </div>
-      <?php
-    }
-    ?>
+       <td><?= $cc['c_id']?></td>
+       <td><?= $cc['name']?></td>
+     </tr>
+
+     <?php } ?>
+   </tbody>
+ </table>
 </div>
-
+ <script>
+ $(document).ready( function () {
+     $('#toop').DataTable();
+ });
+ </script>
 </body>
 </html>
 
-</body>
-</html>

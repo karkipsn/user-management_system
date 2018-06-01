@@ -1,13 +1,14 @@
 <?php
 
-require_once("session.php");
-require_once("products.php");
+require_once("../../session.php");
+require_once("../products.php");
 
 $pc = new Products();
 
 
-if(isset($_POST['padd_btn'])){
+if(isset($_POST['pupdate_btn'])){
 
+  $p_id = strip_tags($_POST['p_id']);
   $pname = strip_tags($_POST['pname']);
   $pdes = strip_tags($_POST['pdes']);
   $pprice = strip_tags($_POST['pprice']);
@@ -15,6 +16,11 @@ if(isset($_POST['padd_btn'])){
   
   $errorcount=0;
 //$fname = filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_STRING);
+
+   if($p_id=="" ||!filter_var($p_id, FILTER_VALIDATE_INT)) {
+    $error = 'Please enter a valid email address !';
+    $errorcount++;
+  }
 
   if($pname=="" || !filter_var($pname, FILTER_SANITIZE_STRING) )  {
     $error = "Please enter valid first name"; 
@@ -44,7 +50,7 @@ if(isset($_POST['padd_btn'])){
   if($errorcount == 0)
   {
     
-      $pc->upload_products($pname,$pdes,$pprice,$pcat_id);
+      $pc->update_products($p_id,$pname,$pdes,$pprice,$pcat_id);
       $pc->redirect('product_create_form.php?added');
 
     }

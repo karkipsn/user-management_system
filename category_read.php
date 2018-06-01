@@ -43,7 +43,7 @@ $cr=$ch->read_category();
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Products <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Upload</a></li>
+            <li><a href="product_update_form.php">Update</a></li>
             <li><a href="#">Delete</a></li>
             <li><a href="product_create_form.php">Create</a></li>
           </ul>

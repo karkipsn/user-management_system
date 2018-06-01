@@ -23,6 +23,10 @@ form, .content {
 	background: white;
 	border-radius: 0px 0px 10px 10px;
 }
+.center_div{
+    margin: 0 auto;
+    width:80% /* value of your choice which suits your alignment */
+}
 .input-group {
 	margin: 10px 0px 10px 0px;
 }
