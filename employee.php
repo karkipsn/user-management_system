@@ -51,17 +51,17 @@ require_once ('database.php');
  	 }
 
 
- 	public function add_employee(){
+ 	public function add_employee($ename,$eadd, $edepart, $etitle, $edob, $ejoin_date){
 
  		$stmt = $this->conn->prepare("INSERT INTO employee(e_name,e_add, e_depart, e_title, e_dob, e_join_date) 
-			VALUES(ename,eadd, edepart, etitle, edob, ejd)");
+			VALUES(:ename, :eadd, :edepart, :etitle, :edob, :ejoin_date)");
 
-		$stmt->bindparam(":ename", $e_name);
-		$stmt->bindparam(":eadd", $e_add);
-		$stmt->bindparam(":edepart", $e_depart);
-		$stmt->bindparam(":etitle", $e_title);
-		$stmt->bindparam(":edob", $e_dob);
-		$stmt->bindparam(":ejd", $e_join_date);										  
+		$stmt->bindparam(":ename", $ename);
+		$stmt->bindparam(":eadd", $eadd);
+		$stmt->bindparam(":edepart", $edepart);
+		$stmt->bindparam(":etitle", $etitle);
+		$stmt->bindparam(":edob", $edob);
+		$stmt->bindparam(":ejoin_date", $ejoin_date);										  
 
 		if($stmt->execute()){
 			return true;

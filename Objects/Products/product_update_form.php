@@ -66,7 +66,7 @@ require_once("../../session.php");
      <div class="form-group">
       <label class="control-label col-sm-2" for="p_id">Product Id:</label>
       <div class="col-sm-6">          
-        <input type="number" class="form-control" id="p_id" placeholder="Products Price" name="p_id">
+        <input type="number" class="form-control" id="p_id" placeholder="Products Id" name="p_id">
       </div>
     </div>
     <div class="form-group">

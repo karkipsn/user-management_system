@@ -61,38 +61,51 @@ require_once("session.php");
 	<div class="container">
 		<legend><center><h2><b>Product Form</b></h2></center></legend><br>
 
-		<form class="form-horizontal" method="post" action="product_create.php">
+		<form class="form-horizontal" method="post" action="employee_create.php">
 
-			
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="pname">Products Name:</label>
-				<div class="col-sm-6">
-					<input type="name" class="form-control" id="pname" placeholder="Enter Product name" name="pname">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="pdes">Description:</label>
-				<div class="col-sm-6">          
-					<input type="text" class="form-control" id="pdes" placeholder="Products Description" name="pdes">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="pprice">Product Price:</label>
-				<div class="col-sm-6">          
-					<input type="number" class="form-control" id="pprice" placeholder="Products Price" name="pprice">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="control-label col-sm-2" for="pcat_id">Category Id:</label>
-				<div class="col-sm-6">          
-					<input type="number" class="form-control" id="pcat_id" placeholder="Products Price" name="pcat_id">
-				</div>
-			</div>
+
+     <div class="form-group">
+      <label class="control-label col-sm-2" for="e_name">Emp Name:</label>
+      <div class="col-sm-6">          
+        <input type="name" class="form-control" id="e_name" placeholder="Name of Employee" name="e_name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="e_depart">Employee Department:</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="e_depart" placeholder="epartment" name="e_depart">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="e_title">Title:</label>
+      <div class="col-sm-6">          
+        <input type="text" class="form-control" id="e_title" placeholder="JOb Title" name="e_title">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="e_add"> Employee Address:</label>
+      <div class="col-sm-6">          
+        <input type="text" class="form-control" id="e_add" placeholder="Address of Employee" name="e_add">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="e_join_date">Join Date:</label>
+      <div class="col-sm-6">          
+        <input type="date" class="form-control" id="e_join_date" placeholder="Join Date" name="e_join_date">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="e_dob">DOB:</label>
+      <div class="col-sm-6">          
+        <input type="date" class="form-control" id="e_dob" placeholder="Date of birth" name="e_dob">
+      </div>
+    </div>
 			
 			
 			<div class="form-group">        
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-default" name="padd_btn">Submit</button>
+					<button type="submit" class="btn btn-default" name="eadd_btn">Submit</button>
 				</div>
 			</div>
 		</form>

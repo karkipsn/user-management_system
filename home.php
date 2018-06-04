@@ -51,6 +51,8 @@ $er=$eh->read_employee();
           </ul>
         </li>
         <li><a href="user_home.php">View Users</a></li>
+        <li><a href="import_file_index.php">Import Data</a></li>
+        <li><a href="#">Export Data</a></li>
         <li><a href="department_read.php">Department</a></li>
         <li><a href="#">About Us</a></li>
       </ul>

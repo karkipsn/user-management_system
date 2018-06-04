@@ -63,10 +63,18 @@ require_once("session.php");
 
     <form class="form-horizontal"  method="post" action="employee_update.php">
 
-     <div class="form-group">
-      <label class="control-label col-sm-2" for="e_id">Emp Id:</label>
+      <div class="form-group">
+      <label class="control-label col-sm-2" for="p_id">Employee Id:</label>
       <div class="col-sm-6">          
-        <input type="number" class="form-control" id="e_id" placeholder="Id of Employee" name="e_id">
+        <input type="number" class="form-control" id="p_id" placeholder="Emp. Id" name="e_id">
+      </div>
+    </div>
+
+
+     <div class="form-group">
+      <label class="control-label col-sm-2" for="e_name">Emp Name:</label>
+      <div class="col-sm-6">          
+        <input type="name" class="form-control" id="e_name" placeholder="Name of Employee" name="e_name">
       </div>
     </div>
     <div class="form-group">
@@ -108,16 +116,18 @@ require_once("session.php");
       </div>
     </div>
   </form>
+
+ 
   <?php
-  if(isset($_GET['updated']))
-  {
+    if(isset($_GET['updated']))
+    {
+      ?>
+      <div class="form-group">
+        <center><h4><b> Thanks Product  Is added.</b></h4></center>
+      </div>
+      <?php
+    }
     ?>
-    <div class="form-group">
-      <center><h4><b> Thanks employee data is updated.</b></h4></center>
-    </div>
-    <?php
-  }
-  ?>
 </div>
 
 </body>

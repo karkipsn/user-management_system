@@ -1,57 +1,55 @@
 <?php
 
-require_once("../../session.php");
-require_once("../products.php");
+require_once("session.php");
 
-$pc = new Products();
+require_once("employee.php");
 
+$eu = new Employee();
 
-if(isset($_POST['padd_btn'])){
+if(isset($_POST['eadd_btn'])){
 
-  $pname = strip_tags($_POST['pname']);
-  $pdes = strip_tags($_POST['pdes']);
-  $pprice = strip_tags($_POST['pprice']);
-  $pcat_id = strip_tags($_POST['pcat_id']);
+  $e_name = strip_tags($_POST['e_name']);
+  $e_add = strip_tags($_POST['e_add']);
+  $e_depart = strip_tags($_POST['e_depart']);
+  $e_title = strip_tags($_POST['e_title']);
+  $e_dob = strip_tags($_POST['e_dob']);
+  $e_join_date = strip_tags($_POST['e_join_date']); 
   
-  $errorcount=0;
+  $errorcount= 0;
 //$fname = filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_STRING);
 
-  if($pname=="" || !filter_var($pname, FILTER_SANITIZE_STRING) )  {
+  if($e_name=="" || !filter_var($e_name, FILTER_SANITIZE_STRING) )  {
     $error = "Please enter valid first name"; 
     $errorcount++;
   }
   
   
-  if($pdes=="" || !filter_var($pdes, FILTER_SANITIZE_STRING)) {
+  if($e_add=="" || !filter_var($e_add, FILTER_SANITIZE_STRING)) {
     $error = "Please enter  valid last name"; 
     $errorcount++;
   }
   
   
-  if($pprice=="" ||!filter_var($pprice, FILTER_VALIDATE_FLOAT)) {
+  if($e_depart=="" ||!filter_var($e_depart, FILTER_SANITIZE_STRING)) {
+    $error = 'Please enter a valid email address !';
+    $errorcount++;
+  }
+  if($e_title=="" ||!filter_var($e_title, FILTER_SANITIZE_STRING)) {
     $error = 'Please enter a valid email address !';
     $errorcount++;
   }
   
-  
-  if($pcat_id=="" ||!filter_var($pcat_id, FILTER_VALIDATE_INT)) {
-    $error = 'Please enter a valid email address !';
-    $errorcount++;
-  }
-
-  
-
   if($errorcount == 0)
   {
-    
-      $pc->upload_products($pname,$pdes,$pprice,$pcat_id);
-      $pc->redirect('product_create_form.php?added');
+    $eu->add_employee($e_name,$e_add,$e_depart,$e_title,$e_dob,$e_join_date);
 
-    }
-    else{
-      echo 'Failed';
-    } 
+    $eu->redirect('employee_create_form.php?updated');
+
   }
-    
+  else{
+    echo   'Failed to create employee';
+  } 
+}
+
 ?>
 

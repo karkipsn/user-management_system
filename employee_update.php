@@ -1,11 +1,12 @@
 <?php
 
 require_once("session.php");
+
 require_once("employee.php");
 
 $eu = new Employee();
 
-if(isset($_POST['pupdate_btn'])){
+if(isset($_POST['eupdate_btn'])){
 
   $e_id = strip_tags($_POST['e_id']);
   $e_name = strip_tags($_POST['e_name']);
@@ -19,7 +20,7 @@ if(isset($_POST['pupdate_btn'])){
 //$fname = filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_STRING);
 
   if($e_id=="" ||!filter_var($e_id, FILTER_VALIDATE_INT)) {
-    $error = 'Please enter a valid email address !';
+    $error = 'Please enter a valid  id !';
     $errorcount++;
   }
 
@@ -44,11 +45,11 @@ if(isset($_POST['pupdate_btn'])){
   {
     $eu->update_employee($e_id,$e_name,$e_add,$e_depart,$e_title,$e_dob,$e_join_date);
 
-    $eu->redirect('employee_update_form.php?added');
+    $eu->redirect('employee_update_form.php?updated');
 
   }
   else{
-    echo 'Failed';
+    echo   $errorcount;
   } 
 }
 
