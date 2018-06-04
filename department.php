@@ -6,7 +6,7 @@ class Department{
 	private $conn;
 
 	public $d_id;
-	public $d_name;
+	public $e_depart;
 	
 
 	public function __construct(){

@@ -3,57 +3,70 @@
 require_once ('database.php');
 
 
- class Employee 
- {
- 	private $conn;
+class Employee 
+{
+	private $conn;
 
- 	public $e_id;
- 	public $e_name;
- 	public $e_depart;
- 	public $e_title;
- 	public $e_add;
- 	public $e_dob;
- 	public $e_join_date;
+	public $e_id;
+	public $e_name;
+	public $e_depart;
+	public $e_title;
+	public $e_add;
+	public $e_dob;
+	public $e_join_date;
+	public $e_dep_id;
 
- 	
- 	function __construct()
- 	{
- 		$database=new Database();
- 		$db =$database->getConnection();
- 		$this->conn= $db;
- 	}
 
- 	public function redirect($url)
+	function __construct()
+	{
+		$database=new Database();
+		$db =$database->getConnection();
+		$this->conn= $db;
+	}
+
+	public function redirect($url)
 	{
 		header("Location: $url");
 	}
 
+	public function read(){
 
- 	public function read_employee(){
+		$stmt = $this->conn->prepare("SELECT
+			d.d_id as e_dep_id, e.e_id, e.e_name, e.e_depart, e.e_title, e.e_add, e.e_dob, e.e_join_date FROM
+			employee  e INNER JOIN department d ON e.e_depart = d.e_depart ORDER BY e.e_id ");
 
- 		$stmt = $this->conn->prepare("SELECT * FROM employee");
+		$stmt->execute();
+
+		return $stmt;
+	}
+
+
+
+	public function read_employee(){
+
+		$stmt = $this->conn->prepare("SELECT * FROM employee");
 
 		$stmt->execute();
 
 		return $stmt;
 
- 	}
+	}
 
- 	 public function update_employee($e_id,$ename,$eadd, $edepart, $etitle, $edob, $ejoin_date){
+	public function update_employee($e_id,$ename,$eadd, $edepart, $etitle, $edob, $ejoin_date){
 
- 		$stmt = $this->conn->prepare("UPDATE employee  SET e_name = :ename, e_add = :eadd, 
- 	 		      e_depart = :edepart, e_title = :etitle, e_dob = :edob , e_join_date = :ejd  WHERE e_id = :eid");
-			
-		 $stmt->execute(array(":eid"=>$e_id, ":ename"=>$ename, ":eadd"=>$eadd, ":edepart"=>$edepart,":etitle"=>$etitle, ":edob"=>$edob,":ejd"=>$ejoin_date));
+		$stmt = $this->conn->prepare("UPDATE employee  SET e_name = :ename, e_add = :eadd, 
+			e_depart = :edepart, e_title = :etitle, e_dob = :edob , e_join_date = :ejd  WHERE e_id = :eid");
 
-		 return $stmt;
+		$stmt->execute(array(":eid"=>$e_id, ":ename"=>$ename, ":eadd"=>$eadd, ":edepart"=>$edepart,":etitle"=>$etitle, ":edob"=>$edob,":ejd"=>$ejoin_date));
 
- 	 }
+		return $stmt;
+
+	}
 
 
- 	public function add_employee($ename,$eadd, $edepart, $etitle, $edob, $ejoin_date){
+	public function add_employee($ename,$eadd, $edepart, $etitle, $edob, $ejoin_date){
 
- 		$stmt = $this->conn->prepare("INSERT INTO employee(e_name,e_add, e_depart, e_title, e_dob, e_join_date) 
+		$stmt = $this->conn->prepare("INSERT INTO employee(e_name,e_add, e_depart, e_title, e_dob, e_join_date) 
 			VALUES(:ename, :eadd, :edepart, :etitle, :edob, :ejoin_date)");
 
 		$stmt->bindparam(":ename", $ename);
@@ -69,10 +82,59 @@ require_once ('database.php');
 
 		return false;
 
- 	}
- }
+	}
+
+	public function delete_employee($e_id){
+		$stmt = $this->conn->prepare("DELETE FROM employee  WHERE e_id = $e_id");
+		$stmt->execute();
+
+		if($stmt->rowCount() == 1){
+
+			return true;
+
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	public function search_employee($keywords){
+		// $stmt = $this->conn->prepare("SELECT
+		// 	d.d_id as e_dep_id, e.e_id, e.e_name, e.e_depart, e.e_title, e.e_add, e.e_dob, e.e_join_date FROM
+		// 	employee  e INNER JOIN department d ON e.e_depart = d.e_depart ORDER BY e.e_id  WHERE 
+		// 	e.e_name LIKE '%".$keywords."%'
+		// 	");
+
+		// ? OR e.e_depart LIKE ? OR e.e_id LIKE ? ORDER BY
+			//e.e_id "
+
+		 $stmt= $this->conn->prepare("SELECT * FROM employee WHERE `e_name` LIKE '%".$keywords."%' ");
+
+		// $stmt->execute();
+
+		// if($stmt->rowCount()> 0){
+
+		// 	return true;
+
+		// }
+		// else
+		// {
+		// 	return false;
+		// }
 
 
+    // bind
+    $stmt->bindParam(1, $keywords);
+    $stmt->bindParam(2, $keywords);
+    $stmt->bindParam(3, $keywords);
+ 
+    // execute query
+    $stmt->execute();
+ 
+    return $stmt;
+	}
+}
 
-	
+
 ?>

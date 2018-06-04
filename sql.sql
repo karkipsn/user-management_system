@@ -85,3 +85,5 @@ CREATE TABLE IF NOT EXISTS `employee` (
 
 
 INSERT INTO `employee` (`e_id`, `e_name`, `e_add`, `e_depart`, `e_title`, `e_dob`, `e_join_date`) VALUES ('1', 'Psn', 'kmpt', 'it', 'prg', '2018-06-21', '2018-06-11');
+
+DELETE from `employee` WHERE e_id BETWEEN 19 AND 30;
