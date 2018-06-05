@@ -73,7 +73,7 @@ $eh = new Employee();
     <form class="form-horizontal"  method="post" action="employee_search.php">
 
       <div class="form-group">
-        <label class="control-label col-sm-2" for="keyword">Employee Id:</label>
+        <label class="control-label col-sm-2" for="keyword">Employee Name:</label>
         <div class="col-sm-6">          
           <input type="text" class="form-control" id="keyword" placeholder="Emp. Id" name="keyword">
         </div>

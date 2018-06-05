@@ -16,7 +16,6 @@ if(isset($_POST["export_btn"]))
   while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
 
     fputcsv($fp, $row);
-
 }    
 
 fclose($fp);

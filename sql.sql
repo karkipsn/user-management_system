@@ -86,4 +86,35 @@ CREATE TABLE IF NOT EXISTS `employee` (
 
 INSERT INTO `employee` (`e_id`, `e_name`, `e_add`, `e_depart`, `e_title`, `e_dob`, `e_join_date`) VALUES ('1', 'Psn', 'kmpt', 'it', 'prg', '2018-06-21', '2018-06-11');
 
-DELETE from `employee` WHERE e_id BETWEEN 19 AND 30;
+-- to eliminate duplicate for unique key drop the rows
+DELETE FROM `employee` WHERE `employee`.`e_id` BETWEEN 7 AND 100
+
+-- adding employee_id
+ALTER TABLE `employee`
+ADD `emp_id` varchar(10) NOT NULL;
+
+
+-- making it unique
+ALTER TABLE `employee`
+ADD CONSTRAINT employee_unique UNIQUE (emp_id);
+
+CREATE TABLE task (
+  emp_id varchar(10) NOT NULL,
+  t_title varchar(50) NOT NULL,
+  t_desc varchar(50) NOT NULL,
+  t_attach LONGBLOB NOT NULL,
+  t_deadline date NOT NULL,
+  INDEX par_ind (emp_id),
+  CONSTRAINT fk_task FOREIGN KEY (emp_id)
+  REFERENCES employee(emp_id)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE
+) ENGINE=INNODB;
+
+ALTER TABLE task ADD INDEX par_ind ( emp_id );
+ALTER TABLE task ADD CONSTRAINT fk_task
+FOREIGN KEY ( customer_id ) REFERENCES employee ( emp_id ) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+
+
+INSERT INTO `task` (`emp_id`, `t_title`, `t_desc`, `t_attach`, `t_deadline`) VALUES ('11', 'task2', 'task', 'image/image2.jpg', '2018-06-04')

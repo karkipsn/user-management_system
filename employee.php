@@ -8,6 +8,7 @@ class Employee
 	private $conn;
 
 	public $e_id;
+	public $emp_id;
 	public $e_name;
 	public $e_depart;
 	public $e_title;
@@ -38,6 +39,45 @@ class Employee
 		$stmt->execute();
 
 		return $stmt;
+	}
+ //RIGHT JOIN <th>EMP ID</th>
+
+
+
+	public function employee_detail(){
+
+		$stmt = $this->conn->prepare("SELECT
+			e.e_depart as t_depart,e.e_name as t_name, t.emp_id, t.t_title, t.t_desc, t.t_attach , t.t_deadline FROM
+			task t LEFT JOIN employee e ON t.emp_id = e.emp_id ORDER BY t.emp_id ");
+
+		$stmt->execute();
+
+		return $stmt;
+
+	}
+	public function employee_detail_search(){
+		
+
+		
+
+		$stmt = $this->conn->prepare("SELECT
+			e.e_depart as t_depart,e.e_name as t_name, t.emp_id, t.t_title, t.t_desc, t.t_attach , t.t_deadline FROM
+			task t LEFT JOIN employee e ON t.emp_id = e.emp_id 
+			WHERE t.emp_id = ?  ORDER BY t.emp_id");
+
+		$stmt->bindParam(1, $this->emp_id);
+	
+
+		if($stmt->execute())
+		{
+			return $stmt;
+		}
+		
+		else
+		{
+			echo 'Error in the keyword';
+		}
+
 	}
 
 
@@ -100,6 +140,7 @@ class Employee
 	}
 
 	public function search_employee($keywords){
+		
 		// $stmt = $this->conn->prepare("SELECT
 		// 	d.d_id as e_dep_id, e.e_id, e.e_name, e.e_depart, e.e_title, e.e_add, e.e_dob, e.e_join_date FROM
 		// 	employee  e INNER JOIN department d ON e.e_depart = d.e_depart ORDER BY e.e_id  WHERE 
@@ -109,30 +150,17 @@ class Employee
 		// ? OR e.e_depart LIKE ? OR e.e_id LIKE ? ORDER BY
 			//e.e_id "
 
-		 $stmt= $this->conn->prepare("SELECT * FROM employee WHERE `e_name` LIKE '%".$keywords."%' ");
-
-		// $stmt->execute();
-
-		// if($stmt->rowCount()> 0){
-
-		// 	return true;
-
-		// }
-		// else
-		// {
-		// 	return false;
-		// }
-
+		$stmt= $this->conn->prepare("SELECT * FROM employee WHERE `e_name` LIKE '%".$keywords."%' ");
 
     // bind
-    $stmt->bindParam(1, $keywords);
-    $stmt->bindParam(2, $keywords);
-    $stmt->bindParam(3, $keywords);
- 
+		$stmt->bindParam(1, $keywords);
+		$stmt->bindParam(2, $keywords);
+		$stmt->bindParam(3, $keywords);
+
     // execute query
-    $stmt->execute();
- 
-    return $stmt;
+		$stmt->execute();
+
+		return $stmt;
 	}
 }
 

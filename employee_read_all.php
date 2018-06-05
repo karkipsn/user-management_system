@@ -94,6 +94,9 @@ $er=$eh->read();
        <td><?= $rowCount['e_title']?></td>
        <td><?= $rowCount['e_dob']?></td>
        <td><?= $rowCount['e_join_date']?></td>
+       <td class="delete"> 
+          <a href="index.php?del_task=<?php echo $row['id'] ?>">x</a> 
+        </td>
      </tr>
 
      <?php } ?>

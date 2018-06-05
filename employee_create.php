@@ -16,7 +16,6 @@ if(isset($_POST['eadd_btn'])){
   $e_join_date = strip_tags($_POST['e_join_date']); 
   
   $errorcount= 0;
-//$fname = filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_STRING);
 
   if($e_name=="" || !filter_var($e_name, FILTER_SANITIZE_STRING) )  {
     $error = "Please enter valid first name"; 
