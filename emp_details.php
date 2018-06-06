@@ -5,8 +5,6 @@ require_once("employee.php");
 
 $eh = new Employee();
 
- 
-
 ?>
 
 
@@ -132,7 +130,7 @@ $eh = new Employee();
              <td><?= $rowCount['t_title']?></td>
              <td><?= $rowCount['t_desc']?></td>
 
-             <td  height="74" width="74" > <?php  echo "<img src ='images/".$rowCount['t_attach']." ' >"  ?> 
+             <td  > <?php  echo "<img src ='images/".$rowCount['t_attach']."  ' >"  ?> 
              <div style="margin-top:10px;"></div></td>
              
              <td><?= $rowCount['t_deadline']?></td>
@@ -151,4 +149,3 @@ $eh = new Employee();
    </script>
  </body>
  </html>
- //" height="92" width="92"
