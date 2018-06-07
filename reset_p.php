@@ -11,7 +11,7 @@ if(isset($_POST['reset_btn']))
 	$upass = strip_tags($_POST['password']);
 
 	
-		if($reset->update_password($umail,$upass)==true){
+		if($reset->update_password($umail,$upass)){
 		
 			$reset->redirect('index.php?updated');
 		}

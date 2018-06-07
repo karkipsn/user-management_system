@@ -40,7 +40,7 @@ $eh = new Employee();
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
+          <li ><a href="home.php">Home</a></li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Employees <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -75,7 +75,7 @@ $eh = new Employee();
       <div class="form-group">
         <label class="control-label col-sm-2" for="keyword">Employee Name:</label>
         <div class="col-sm-6">          
-          <input type="text" class="form-control" id="keyword" placeholder="Emp. Id" name="keyword">
+          <input type="text" class="form-control" id="keyword" placeholder="Search Employee" name="keyword">
         </div>
       </div>
 
@@ -110,17 +110,18 @@ $eh = new Employee();
           $keyword = strip_tags($_POST['keyword']);
 
           $sr=$eh->search_employee($keyword);
+          $rowCount=count($sr);
 
-          $i = 0; while ($rowCount=$sr->fetch(PDO::FETCH_ASSOC)) { ?>
+          for($i = 0;$i<$rowCount;$i++) { ?>
            <tr>
-             <td><?= $rowCount['e_id']?></td>
-             <td><?= $rowCount['e_name']?></td>
-             <td><?= $rowCount['e_add']?></td>
-             <td><?= $rowCount['e_depart']?></td>
+             <td><?= $sr[$i]['emp_id']?></td>
+             <td><?= $sr[$i]['e_name']?></td>
+             <td><?= $sr[$i]['e_add']?></td>
+             <td><?= $sr[$i]['e_depart']?></td>
              
-             <td><?= $rowCount['e_title']?></td>
-             <td><?= $rowCount['e_dob']?></td>
-             <td><?= $rowCount['e_join_date']?></td>
+             <td><?= $sr[$i]['e_title']?></td>
+             <td><?= $sr[$i]['e_dob']?></td>
+             <td><?= $sr[$i]['e_join_date']?></td>
            </tr>
 
          <?php }} ?>

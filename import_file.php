@@ -28,6 +28,7 @@ if(isset($_POST["import_btn"]))
 		{
 
 			$er=$eu->read_employee();
+			$rowCount=count($er);
 		}
 		else{
 			echo 'Error in Adding csv';
@@ -101,15 +102,15 @@ if(isset($_POST["import_btn"]))
 
 				<tbody>
 					<?php
-					$i = 0; while ($rowCount=$er->fetch(PDO::FETCH_ASSOC)) { ?>
+					for($i = 0; $i<$rowCount;$i++) { ?>
 						<tr>
-							<td><?= $rowCount['e_id']?></td>
-							<td><?= $rowCount['e_name']?></td>
-							<td><?= $rowCount['e_add']?></td>
-							<td><?= $rowCount['e_depart']?></td>
-							<td><?= $rowCount['e_title']?></td>
-							<td><?= $rowCount['e_dob']?></td>
-							<td><?= $rowCount['e_join_date']?></td>
+							<td><?= $er[$i]['e_id']?></td>
+							<td><?= $er[$i]['e_name']?></td>
+							<td><?= $er[$i]['e_add']?></td>
+							<td><?= $er[$i]['e_depart']?></td>
+							<td><?= $er[$i]['e_title']?></td>
+							<td><?= $er[$i]['e_dob']?></td>
+							<td><?= $er[$i]['e_join_date']?></td>
 						</tr>
 
 					<?php } ?>

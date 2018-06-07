@@ -6,6 +6,7 @@ require_once("employee.php");
 $eh = new Employee();
 
 $er=$eh->read();
+$rowCount=count($er);
 
 ?>
 
@@ -22,7 +23,9 @@ $er=$eh->read();
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+  <link rel="stylesheet"  href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js">
+  </script>
 
 </head>
 <body>
@@ -39,9 +42,11 @@ $er=$eh->read();
         </button>
         <a class="navbar-brand" href="#">Employee Details</a>
       </div>
+
       <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav" >
           <li class="active"><a href="#">Home</a></li>
+
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Employees <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -58,24 +63,33 @@ $er=$eh->read();
           <li><a href="import_file_index.php">Import Data</a></li>
           <li><a href="export_file.php">Export Data</a></li>
           <li><a href="department_read.php">Department</a></li>
-           <li class="dropdown">
+          <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Task <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="task_create.php">Task</a></li>
+              <li><a href="task_create.php"> Assign Task</a></li>
               <li><a href="emp_details.php">Employee Details</a></li>
               
             </ul>
           </li>
-          <li><a href="task_create.php">Task</a></li>
           <li><a href="#">About Us</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li><a href="index.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li><a href="logout.php?logout=true""><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
       </div>
     </div>
   </nav>
+  <script >
+
+
+    $('ul.nav li.dropdown').hover(function() {
+      $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+    }, function() {
+      $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+    });
+
+  </script>
 
   <!-- Container Starts  -->
 
@@ -87,7 +101,7 @@ $er=$eh->read();
          <th>EMP ID</th>
          <!-- <th>ItemImage</th> -->
          <th>EMP Name</th>
-         <th>EMP Add></th>
+         <th>EMP Add</th>
          <th>EMP Depart</th>
          <th>EMP DEP. ID</th>
          <th>EMP Title</th>
@@ -97,17 +111,18 @@ $er=$eh->read();
      </thead>
 
      <tbody>
+      <!-- while ($rowCount=$er->fetch(PDO::FETCH_ASSOC) -->
        <?php
-       $i = 0; while ($rowCount=$er->fetch(PDO::FETCH_ASSOC)) { ?>
+       for ($i = 0;$i<$rowCount;$i++){ ?>
          <tr>
-           <td><?= $rowCount['e_id']?></td>
-           <td><?= $rowCount['e_name']?></td>
-           <td><?= $rowCount['e_add']?></td>
-           <td><?= $rowCount['e_depart']?></td>
-           <td><?= $rowCount['e_dep_id']?></td>
-           <td><?= $rowCount['e_title']?></td>
-           <td><?= $rowCount['e_dob']?></td>
-           <td><?= $rowCount['e_join_date']?></td>
+           <td><?= $er[$i]['emp_id']?></td>
+           <td><?= $er[$i]['e_name']?></td>
+           <td><?= $er[$i]['e_add']?></td>
+           <td><?= $er[$i]['e_depart']?></td>
+           <td><?= $er[$i]['e_dep_id']?></td>
+           <td><?= $er[$i]['e_title']?></td>
+           <td><?= $er[$i]['e_dob']?></td>
+           <td><?= $er[$i]['e_join_date']?></td>
          </tr>
 
        <?php } ?>
@@ -115,10 +130,15 @@ $er=$eh->read();
    </table>
  </div>
  <script>
-   $(document).ready( function () {
-     $('#toop').DataTable();
-   });
- </script>
+  $(document).ready(function() {
+    $('#toop').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script>
 </body>
 </html>
 

@@ -26,10 +26,10 @@ if(isset($_POST['login_btn']))
 		else{
 
 			$session_check=$login->login($umail,$upass);
-			// var_dump($session_check);
-			// exit();
+			 // var_dump($session_check);
+			 // exit();
 
-			if($session_check == '')
+			if(!$session_check)
 			{
 				$error = "Email and password dosen't match !";
 				$login->redirect('index.php');

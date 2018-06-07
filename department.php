@@ -14,6 +14,7 @@ class Department{
 		$db = $database->getConnection();
 		$this->conn = $db;
 	}
+
 	public function redirect($url)
 	{
 		header("Location: $url");
@@ -24,11 +25,17 @@ class Department{
 
  		$stmt = $this->conn->prepare("SELECT * FROM department");
 
-		$stmt->execute();
+		if($stmt->execute()){
+			$res=[];
+			while ($row =  $stmt->fetch(PDO::FETCH_ASSOC)) {
+				$res[] = $row;
+			}
+         //print_r($array);
+			return $res;
+		}
 
-		return $stmt;
-
- 	}
-}
+		return false;
+		
+}}
 
 ?>

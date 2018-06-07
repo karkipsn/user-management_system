@@ -5,6 +5,7 @@ require_once("employee.php");
 
 $eh = new Employee();
 
+
 ?>
 
 
@@ -106,7 +107,6 @@ $eh = new Employee();
            <th>Task Title</th>
            <th>Task Description</th>
            <th>Task Attach</th>
-           
            <th>Task Deadline</th>
            
          </tr>
@@ -114,26 +114,29 @@ $eh = new Employee();
 
        <tbody>
          <?php
+         $emp_id = $_GET['keyword'];
+         $sr=$eh->employee_detail_search($emp_id);
+          $row= count($sr);
 
         // if(isset($_POST['esearch_btn'])){
 
-          $eh->emp_id = $_GET['keyword'];
-
-          $sr=$eh->employee_detail_search();
- 
-          $i = 0; while ($rowCount=$sr->fetch(PDO::FETCH_ASSOC)) { ?>
+         for ($i = 0;$i< $row; $i++ ) { ?>
            <tr>
-      
-             <td><?= $rowCount['emp_id']?></td>
-             <td><?= $rowCount['t_name']?></td>
-             <td><?= $rowCount['t_depart']?></td>
-             <td><?= $rowCount['t_title']?></td>
-             <td><?= $rowCount['t_desc']?></td>
 
-             <td  > <?php  echo "<img src ='images/".$rowCount['t_attach']."  ' >"  ?> 
-             <div style="margin-top:10px;"></div></td>
+             <td><?= $sr[$i]['emp_id']?></td>
+             <td><?= $sr[$i]['t_name']?></td>
+             <td><?= $sr[$i]['t_depart']?></td>
+             <td><?= $sr[$i]['t_title']?></td>
+             <td><?= $sr[$i]['t_desc']?></td>
+
+            <!--  <td  > <?php  echo "<img src ='images/".$sr[$i]['t_attach']." '' height='92' width='92' >"  ?> 
+             <div style="margin-top:10px;"></div></td> -->
+             <!-- for using while conditions  -->
+
+            <td><img src="<?= $sr[$i]['t_attach'] ?>" height="92" width="92">
+       <div style="margin-top:10px;"></div></td>
              
-             <td><?= $rowCount['t_deadline']?></td>
+             <td><?= $sr[$i]['t_deadline']?></td>
 
            </tr>
 

@@ -6,6 +6,7 @@ require_once("department.php");
 $dh = new Department();
 
 $dr=$dh->read_department();
+$count = count($dr);
 
 ?>
 <!DOCTYPE html>
@@ -40,7 +41,7 @@ $dr=$dh->read_department();
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="home.php">Home</a></li>
+        <li ><a href="home.php">Home</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="home.php">Employees <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -50,7 +51,8 @@ $dr=$dh->read_department();
           </ul>
         </li>
         <li><a href="user_home.php">View Users</a></li>
-        <li><a href="#">Department</a></li>
+        <li ><a href="#">Department</a></li>
+        <li class="active"><a href="#">Department</a></li>
         <li><a href="#">About Us</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -76,10 +78,10 @@ $dr=$dh->read_department();
 
    <tbody>
      <?php
-        $i = 0; while ($rowCount=$dr->fetch(PDO::FETCH_ASSOC)) { ?>
+        for($i = 0;$i<$count;$i++) { ?>
      <tr>
-       <td><?= $rowCount['d_id']?></td>
-       <td><?= $rowCount['e_depart']?></td>
+       <td><?= $dr[$i]['d_id']?></td>
+       <td><?= $dr[$i]['e_depart']?></td>
        
      </tr>
 

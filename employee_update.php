@@ -8,7 +8,7 @@ $eu = new Employee();
 
 if(isset($_POST['eupdate_btn'])){
 
-  $e_id = strip_tags($_POST['e_id']);
+  $emp_id = strip_tags($_POST['emp_id']);
   $e_name = strip_tags($_POST['e_name']);
   $e_add = strip_tags($_POST['e_add']);
   $e_depart = strip_tags($_POST['e_depart']);
@@ -19,7 +19,7 @@ if(isset($_POST['eupdate_btn'])){
   $errorcount= 0;
 //$fname = filter_input(INPUT_POST, "firstname", FILTER_SANITIZE_STRING);
 
-  if($e_id=="" ||!filter_var($e_id, FILTER_VALIDATE_INT)) {
+  if($emp_id=="" ||!filter_var($emp_id, FILTER_VALIDATE_INT)) {
     $error = 'Please enter a valid  id !';
     $errorcount++;
   }
@@ -43,7 +43,7 @@ if(isset($_POST['eupdate_btn'])){
   
   if($errorcount == 0)
   {
-    $eu->update_employee($e_id,$e_name,$e_add,$e_depart,$e_title,$e_dob,$e_join_date);
+    $eu->update_employee($emp_id,$e_name,$e_add,$e_depart,$e_title,$e_dob,$e_join_date);
 
     $eu->redirect('employee_update_form.php?updated');
 

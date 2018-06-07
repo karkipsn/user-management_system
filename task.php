@@ -26,13 +26,13 @@ class Task{
  	public function create_task($emp_id,$t_title,$t_desc,$t_attach,$t_deadline){
 
  		$stmt = $this->conn->prepare("INSERT INTO task(emp_id, t_title, t_desc, t_attach, t_deadline) 
-    VALUES(:tid, :tt, :td, :ta, :td )");
+    VALUES(:tid, :tt, :td, :ta, :tdl )");
 
   $stmt->bindparam(":tid", $emp_id);
   $stmt->bindparam(":tt", $t_title);
   $stmt->bindparam(":td", $t_desc);
   $stmt->bindparam(":ta", $t_attach);
-  $stmt->bindparam(":td", $t_deadline);
+  $stmt->bindparam(":tdl", $t_deadline);
 
   $stmt->execute();
 		return $stmt;

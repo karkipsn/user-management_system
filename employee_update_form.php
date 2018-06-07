@@ -64,9 +64,9 @@ require_once("session.php");
     <form class="form-horizontal"  method="post" action="employee_update.php">
 
       <div class="form-group">
-        <label class="control-label col-sm-2" for="p_id">Employee Id:</label>
+        <label class="control-label col-sm-2" for="emp_id">Employee Id:</label>
         <div class="col-sm-6">          
-          <input type="number" class="form-control" id="p_id" placeholder="Emp. Id" name="e_id">
+          <input type="number" class="form-control" id="emp_id" placeholder="Emp. Id" name="emp_id">
         </div>
       </div>
 
@@ -123,7 +123,7 @@ require_once("session.php");
     {
       ?>
       <div class="form-group">
-        <center><h4><b> Thanks Product  Is added.</b></h4></center>
+        <center><h4><b> Thanks Product  Is Updated.</b></h4></center>
       </div>
       <?php
     }

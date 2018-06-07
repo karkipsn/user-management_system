@@ -6,6 +6,7 @@ require_once("category.php");
 $ch = new Category();
 
 $cr=$ch->read_category();
+$rowCount=count($cr);
 
 ?>
 <!DOCTYPE html>
@@ -75,11 +76,11 @@ $cr=$ch->read_category();
 
    <tbody>
      <?php
-        $i = 0; while ($cc=$cr->fetch(PDO::FETCH_ASSOC)) { ?>
+        for($i = 0;$i<$rowCount;$i++) { ?>
      <tr>
 
-       <td><?= $cc['c_id']?></td>
-       <td><?= $cc['name']?></td>
+       <td><?= $cr[]['c_id']?></td>
+       <td><?= $cr[$i]['name']?></td>
      </tr>
 
      <?php } ?>

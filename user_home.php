@@ -1,5 +1,13 @@
 <?php
 require_once("session.php");
+
+require_once("user.php");
+
+$table = new USER();
+
+$p = $table->read();
+$row = count($p);
+
 ?>
 
 <!DOCTYPE html>
@@ -72,20 +80,15 @@ require_once("session.php");
 			<tbody>
 				<?php 
 
-				require_once("user.php");
 
-				$table = new USER();
-
-		// select all tasks if page is visited or refreshed
-				$p = $table->read();
-
-				$i = 1; while ($row=$p->fetch(PDO::FETCH_ASSOC)) { ?>
+				for ($i = 0;$i< $row; $i++ ) { ?>
 					<tr>
-						<td class="user_id"> <?php echo $row['user_id']; ?> </td>
-						<td class="first_name"> <?php echo $row['first_name']; ?> </td>
-						<td class="last_name"> <?php echo $row['last_name']; ?> </td>
-						<td class="user_email"> <?php echo $row['user_email']; ?> </td>
-						<td class="joining_date"> <?php echo $row['joining_date']; ?> </td>
+						
+						<td > <?= $p[$i]['user_id']; ?> </td>
+						<td > <?= $p[$i]['first_name']; ?> </td>
+						<td > <?= $p[$i]['last_name']; ?> </td>
+						<td > <?= $p[$i]['user_email']; ?> </td>
+						<td > <?= $p[$i]['joining_date']; ?> </td>
 
 					</tr>
 					<?php $i++; } ?>	

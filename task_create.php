@@ -2,8 +2,13 @@
 
 require_once("session.php");
 require_once ('task.php');
+require_once ('employee.php');
 
 $task= new Task();
+$eh = new Employee();
+
+$er=$eh->read();
+$count = count($er);
 
 
 if(isset($_POST['task_create_btn'])){
@@ -21,10 +26,7 @@ if(isset($_POST['task_create_btn'])){
 
 
   if (move_uploaded_file($_FILES['t_attach']['tmp_name'], $target)) {
-
     $task->redirect('task_create.php?success');
-  }else{
-    $msg = "Failed to upload image";
   }
 
 }
@@ -94,7 +96,16 @@ if(isset($_POST['task_create_btn'])){
       <div class="form-group">
         <label class="control-label col-sm-2" for="emp_id">Employee Id:</label>
         <div class="col-sm-6">          
-          <input type="number" class="form-control" id="emp_id" placeholder="Emp. Id" name="emp_id">
+          <select class="form-control" id="emp_id" placeholder="Emp. Id" name="emp_id">
+            <option value=" "> </option>
+
+        <?php
+         for( $i = 0; $i<$count;$i++) {
+            echo '<option value='.$er[$i]['emp_id'].'>' .$er[$i]['emp_id']. '</option>';
+          }
+        ?> 
+           
+          </select>
         </div>
       </div>
 

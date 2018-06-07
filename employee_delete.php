@@ -7,9 +7,10 @@ $eh = new Employee();
 
 if(isset($_POST['edelete_btn'])){
 
-  $e_id = strip_tags($_POST['e_id']);
+  $emp_id = strip_tags($_POST['emp_id']);
 
-  $er=$eh->delete_employee($e_id);
+  $er=$eh->delete_employee($emp_id);
+  
   if(!$er == false){
     echo 'Successfully deleted';
   }
@@ -57,15 +58,15 @@ if(isset($_POST['edelete_btn'])){
 
   <!-- Container Starts  -->
 
-  <<div class= "d-flex justify-content-center align-items-center container ">
-    <legend><center><h2><b>Product Form</b></h2></center></legend><br>
+  <div class= "d-flex justify-content-center align-items-center container ">
+    <legend><center><h2><b>Delete Form</b></h2></center></legend><br>
 
     <form class="form-horizontal"  method="post" action="employee_delete.php">
 
       <div class="form-group">
-        <label class="control-label col-sm-2" for="p_id">Employee Id:</label>
+        <label class="control-label col-sm-2" for="emp_id">Employee Id:</label>
         <div class="col-sm-6">          
-          <input type="number" class="form-control" id="p_id" placeholder="Emp. Id" name="e_id">
+          <input type="number" class="form-control" id="emp_id" placeholder="Emp. Id" name="emp_id">
         </div>
       </div>
 

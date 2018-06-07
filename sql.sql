@@ -13,9 +13,15 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 
 INSERT INTO users (`user_id`,`first_name`,`last_name`,`user_email`,`user_pass`,`joining_date`) 
-VALUES ('1','psn','karki','psn@psn.com','psn','5/28/2018')
+VALUES ('1','psn','karki','psn@psn.com','psn','5/28/2018'),
+VALUES ('36','test','test','test@test.com','testtest','5/28/2018'),
+VALUES ('31','test1','val','test1@val.com','test1val','5/28/2018')
 
-
+-- TO reset password 
+-- but its hash value is stored in database ; we will update from the update function in user class
+UPDATE INTO users 
+  SET user_email ="test@test.com", user_pass ="poshan"
+  WHERE user_email="test@test.com";
 
 
 
@@ -73,30 +79,40 @@ INSERT INTO `department` (`d_id`, `d_name`) VALUES ('5', 'Health');
 
 -- Employee Table
 CREATE TABLE IF NOT EXISTS `employee` (
-  `e_id` int(11) NOT NULL AUTO_INCREMENT,
+  `emp_id` int(10) NOT NULL AUTO_INCREMENT,
   `e_name` varchar(15) NOT NULL,
     `e_add` varchar(60) NOT NULL,
   `e_depart` varchar(25) NOT NULL,
   `e_title` varchar(25) NOT NULL,
   `e_dob` timestamp NOT NULL,
   `e_join_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`e_id`)
+  PRIMARY KEY (`emp_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 
-INSERT INTO `employee` (`e_id`, `e_name`, `e_add`, `e_depart`, `e_title`, `e_dob`, `e_join_date`) VALUES ('1', 'Psn', 'kmpt', 'it', 'prg', '2018-06-21', '2018-06-11');
+ALTER TABLE `employee` ADD UNIQUE(`emp_id`);
+
+
+INSERT INTO `employee` (`emp_id`, `e_name`, `e_add`, `e_depart`, `e_title`, `e_dob`, `e_join_date`) 
+VALUES ('11', 'Psn', 'kmpt', 'it', 'prg', '2018-06-21', '2018-06-11'),
+VALUES ('12', 'rsn', 'npl', 'Civil', 'Eng', '2018-06-21', '2018-06-11'),
+VALUES ('13', 'gsn', 'kmpt', 'Mechanical', 'Eng', '2018-06-21', '2018-06-11'),
+VALUES ('14', 'tsn', 'npl', 'it', 'prg', '2018-06-21', '2018-06-11'),
+VALUES ('15', 'Ps', 'kmpt', 'Account', 'Accountant', '2018-06-21', '2018-06-11'),
+VALUES ('16', 'sn', 'kmpt', 'Health', 'Doctor', '2018-06-21', '2018-06-11');
 
 -- to eliminate duplicate for unique key drop the rows
 DELETE FROM `employee` WHERE `employee`.`e_id` BETWEEN 7 AND 100
 
 -- adding employee_id
 ALTER TABLE `employee`
-ADD `emp_id` varchar(10) NOT NULL;
+ADD `emp_id` int(11) NOT NULL;
 
 
 -- making it unique
 ALTER TABLE `employee`
 ADD CONSTRAINT employee_unique UNIQUE (emp_id);
+
 
 CREATE TABLE task (
   emp_id varchar(10) NOT NULL,
@@ -104,17 +120,23 @@ CREATE TABLE task (
   t_desc varchar(50) NOT NULL,
   t_attach LONGBLOB NOT NULL,
   t_deadline date NOT NULL,
-  INDEX par_ind (emp_id),
-  CONSTRAINT fk_task FOREIGN KEY (emp_id)
-  REFERENCES employee(emp_id)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE
+
 ) ENGINE=INNODB;
 
-ALTER TABLE task ADD INDEX par_ind ( emp_id );
-ALTER TABLE task ADD CONSTRAINT fk_task
-FOREIGN KEY ( customer_id ) REFERENCES employee ( emp_id ) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 
+INSERT INTO `task` (`emp_id`, `t_title`, `t_desc`, `t_attach`, `t_deadline`)
+ VALUES ('11', 'task2', 'task', 'image/image2.jpg', '2018-06-04')
 
-INSERT INTO `task` (`emp_id`, `t_title`, `t_desc`, `t_attach`, `t_deadline`) VALUES ('11', 'task2', 'task', 'image/image2.jpg', '2018-06-04')
+-- altering table employee engine type to create the relation
+ALTER TABLE employee ENGINE = InnoDB;
+
+-- making same data type for foreign key
+ALTER TABLE `task` CHANGE `emp_id` `emp_id` INT(10) NOT NULL;
+
+-- adding foreign key emp_id on table task from reference table employee
+ALTER TABLE `task` ADD CONSTRAINT `ftaskemp1` FOREIGN KEY (`emp_id`) 
+REFERENCES `employee`(`emp_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+INSERT INTO `task` (`emp_id`, `t_title`, `t_desc`, `t_attach`, `t_deadline`) 
+VALUES ('101', 'task2', 'task', 'image2.jpg', '2018-06-06');

@@ -6,6 +6,7 @@ require_once("employee.php");
 $eh = new Employee();
 
 $er=$eh->read();
+$count = count($er);
 
 ?>
 <!DOCTYPE html>
@@ -85,15 +86,15 @@ $er=$eh->read();
 
    <tbody>
      <?php
-        $i = 0; while ($rowCount=$er->fetch(PDO::FETCH_ASSOC)) { ?>
+       for( $i = 0; $i<$count;$i++) { ?>
      <tr>
-       <td><?= $rowCount['e_id']?></td>
-       <td><?= $rowCount['e_name']?></td>
-       <td><?= $rowCount['e_add']?></td>
-       <td><?= $rowCount['e_depart']?></td>
-       <td><?= $rowCount['e_title']?></td>
-       <td><?= $rowCount['e_dob']?></td>
-       <td><?= $rowCount['e_join_date']?></td>
+       <td><?= $er[$i]['emp_id']?></td>
+       <td><?= $er[$i]['e_name']?></td>
+       <td><?= $er[$i]['e_add']?></td>
+       <td><?= $er[$i]['e_depart']?></td>
+       <td><?= $er[$i]['e_title']?></td>
+       <td><?= $er[$i]['e_dob']?></td>
+       <td><?= $er[$i]['e_join_date']?></td>
        <td class="delete"> 
           <a href="index.php?del_task=<?php echo $row['id'] ?>">x</a> 
         </td>

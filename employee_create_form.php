@@ -35,12 +35,13 @@ require_once("session.php");
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li class="dropdown">
+        <li ><a href="home.php">Home</a></li>
+        <li class="dropdown" class="active">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Employees <span class="caret"></span></a>
           <ul class="dropdown-menu">
           	<li><a href="employee_create_form.php">Create</a></li>
             <li><a href="employee_update_form.php">Update</a></li>
+            <li><a href="employee_search.php">View Employee</a></li>
             <li><a href="#">Delete</a></li>
             
           </ul>

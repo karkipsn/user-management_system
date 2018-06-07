@@ -2,7 +2,6 @@
 
 require_once ('database.php');
 
-
 class Employee 
 {
 	private $conn;
@@ -25,77 +24,92 @@ class Employee
 		$this->conn= $db;
 	}
 
+
 	public function redirect($url)
 	{
 		header("Location: $url");
 	}
 
+
 	public function read(){
 
 		$stmt = $this->conn->prepare("SELECT
-			d.d_id as e_dep_id, e.e_id, e.e_name, e.e_depart, e.e_title, e.e_add, e.e_dob, e.e_join_date FROM
-			employee  e INNER JOIN department d ON e.e_depart = d.e_depart ORDER BY e.e_id ");
+			d.d_id as e_dep_id, e.emp_id, e.e_name, e.e_depart, e.e_title, e.e_add, e.e_dob, e.e_join_date FROM
+			employee  e INNER JOIN department d ON e.e_depart = d.e_depart ORDER BY e.emp_id ");
 
 		$stmt->execute();
 
-		return $stmt;
-	}
- //RIGHT JOIN <th>EMP ID</th>
-
-
-
-	public function employee_detail(){
-
-		$stmt = $this->conn->prepare("SELECT
-			e.e_depart as t_depart,e.e_name as t_name, t.emp_id, t.t_title, t.t_desc, t.t_attach , t.t_deadline FROM
-			task t LEFT JOIN employee e ON t.emp_id = e.emp_id ORDER BY t.emp_id ");
-
-		$stmt->execute();
-
-		return $stmt;
-
-	}
-	public function employee_detail_search(){
+		$res = [];
 		
+		while ($row =  $stmt->fetch(PDO::FETCH_ASSOC)) {
+			$res[] = $row;
+		}
+         //print_r($array);
+		return $res;
+		
+	}
 
+
+	
+	public function employee_detail_search($emp_id){
 		
 
 		$stmt = $this->conn->prepare("SELECT
 			e.e_depart as t_depart,e.e_name as t_name, t.emp_id, t.t_title, t.t_desc, t.t_attach , t.t_deadline FROM
 			task t LEFT JOIN employee e ON t.emp_id = e.emp_id 
-			WHERE t.emp_id = ?  ORDER BY t.emp_id");
+			WHERE t.emp_id = $emp_id  ORDER BY t.emp_id");
 
-		$stmt->bindParam(1, $this->emp_id);
-	
-
+		
 		if($stmt->execute())
 		{
-			return $stmt;
-		}
-		
-		else
-		{
-			echo 'Error in the keyword';
+
+			$res = [];
+			while ($row =  $stmt->fetch(PDO::FETCH_ASSOC)) {
+				$res[] = $row;
+			}
+         //print_r($array);
+			return $res;
 		}
 
+		return false;
+		
 	}
 
+ //   public function employee_detail(){
 
+	// 	$stmt = $this->conn->prepare("SELECT
+	// 		e.e_depart as t_depart,e.e_name as t_name, t.emp_id, t.t_title, t.t_desc, t.t_attach , t.t_deadline FROM
+	// 		task t LEFT JOIN employee e ON t.emp_id = e.emp_id ORDER BY t.emp_id ");
+
+	// 	$stmt->execute();
+
+	// 	return $stmt;
+
+	// }
 
 	public function read_employee(){
 
 		$stmt = $this->conn->prepare("SELECT * FROM employee");
 
-		$stmt->execute();
+		if($stmt->execute())
+		{
 
-		return $stmt;
+			$res = [];
+			while ($row =  $stmt->fetch(PDO::FETCH_ASSOC)) {
+				$res[] = $row;
+			}
+         //print_r($array);
+			return $res;
+		}
+
+		return false;
 
 	}
 
 	public function update_employee($e_id,$ename,$eadd, $edepart, $etitle, $edob, $ejoin_date){
 
 		$stmt = $this->conn->prepare("UPDATE employee  SET e_name = :ename, e_add = :eadd, 
-			e_depart = :edepart, e_title = :etitle, e_dob = :edob , e_join_date = :ejd  WHERE e_id = :eid");
+			e_depart = :edepart, e_title = :etitle, e_dob = :edob , e_join_date = :ejd  WHERE emp_id = :eid");
 
 		$stmt->execute(array(":eid"=>$e_id, ":ename"=>$ename, ":eadd"=>$eadd, ":edepart"=>$edepart,":etitle"=>$etitle, ":edob"=>$edob,":ejd"=>$ejoin_date));
 
@@ -124,8 +138,8 @@ class Employee
 
 	}
 
-	public function delete_employee($e_id){
-		$stmt = $this->conn->prepare("DELETE FROM employee  WHERE e_id = $e_id");
+	public function delete_employee($emp_id){
+		$stmt = $this->conn->prepare("DELETE FROM employee  WHERE emp_id = $emp_id");
 		$stmt->execute();
 
 		if($stmt->rowCount() == 1){
@@ -133,10 +147,9 @@ class Employee
 			return true;
 
 		}
-		else
-		{
-			return false;
-		}
+		
+		return false;
+		
 	}
 
 	public function search_employee($keywords){
@@ -157,10 +170,18 @@ class Employee
 		$stmt->bindParam(2, $keywords);
 		$stmt->bindParam(3, $keywords);
 
-    // execute query
-		$stmt->execute();
+        
+		if($stmt->execute())
+		{     $res = [];
 
-		return $stmt;
+			while ($row =  $stmt->fetch(PDO::FETCH_ASSOC)) {
+				$res[] = $row;
+			}
+         //print_r($array);
+			return $res;
+		}
+
+		return false;
 	}
 }
 

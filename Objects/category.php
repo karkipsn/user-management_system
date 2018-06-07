@@ -20,7 +20,13 @@ public function __construct(){
     public function read_category(){
     	$stmt = $this->conn->prepare("SELECT * from category");
     	$stmt->execute();
-    	return $stmt;
+        
+    	$res = [];
+        while ($row =  $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $res[] = $row;
+        }
+         //print_r($array);
+        return $res;
 
     }
 
