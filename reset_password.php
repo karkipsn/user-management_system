@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Login for User</title>
+	<title>Update Password for User</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>

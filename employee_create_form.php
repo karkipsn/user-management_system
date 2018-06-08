@@ -60,7 +60,7 @@ require_once("session.php");
 	<!-- Container Starts  -->
 
 	<div class="container">
-		<legend><center><h2><b>Product Form</b></h2></center></legend><br>
+		<legend><center><h2><b>Employee Adding Form</b></h2></center></legend><br>
 
 		<form class="form-horizontal" method="post" action="employee_create.php">
 

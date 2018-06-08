@@ -49,8 +49,6 @@ class Employee
 		
 	}
 
-
-	
 	public function employee_detail_search($emp_id){
 		
 
@@ -170,20 +168,20 @@ class Employee
 		$stmt->bindParam(2, $keywords);
 		$stmt->bindParam(3, $keywords);
 
-        
+		
 		if($stmt->execute())
-		{     $res = [];
+			{     $res = [];
 
-			while ($row =  $stmt->fetch(PDO::FETCH_ASSOC)) {
-				$res[] = $row;
-			}
+				while ($row =  $stmt->fetch(PDO::FETCH_ASSOC)) {
+					$res[] = $row;
+				}
          //print_r($array);
-			return $res;
+				return $res;
+			}
+
+			return false;
 		}
-
-		return false;
 	}
-}
 
 
-?>
+	?>

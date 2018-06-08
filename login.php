@@ -37,6 +37,9 @@ if(isset($_POST['login_btn']))
 			}
 			else{
 				$_SESSION['user_session']= $session_check;
+				
+				$pass=$upass;
+				$login->loginlog($umail,$pass);
 				$login->redirect('home.php');}
 
 			}

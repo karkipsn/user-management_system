@@ -26,7 +26,7 @@
 			?>
 		
 			<div class="error">
-				Successfully Updated <a href='index.php'>login</a> here
+				Error in update<a href='reset_password.php'>Try Again</a> here
 			</div>
 			<?php
 		}

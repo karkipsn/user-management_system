@@ -140,3 +140,34 @@ REFERENCES `employee`(`emp_id`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 INSERT INTO `task` (`emp_id`, `t_title`, `t_desc`, `t_attach`, `t_deadline`) 
 VALUES ('101', 'task2', 'task', 'image2.jpg', '2018-06-06');
+
+
+-- Creating logs table for accessing the logs
+
+CREATE TABLE IF NOT EXISTS `log` (
+  `log_id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` varchar(15) NOT NULL,
+  `new_password` varchar(15) NOT NULL,
+  `session` varchar(255) NOT NULL,
+  `joined_date` timestamp NOT NULL,
+  `updated_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`log_id`)
+) ENGINE=INNODB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+
+
+ALTER TABLE `log` ADD `email` VARCHAR(255) NOT NULL AFTER `log_id`;
+ALTER TABLE `log` CHANGE `new_password` `new_password` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+ALTER TABLE `log` DROP joining_date;
+ALTER TABLE `log` CHANGE `updated_date` `updated_date` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+
+-- Creating logs table for accessing the login logs
+CREATE TABLE IF NOT EXISTS `loginlog` (
+  `log_id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` varchar(15) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`log_id`)
+) ENGINE=INNODB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

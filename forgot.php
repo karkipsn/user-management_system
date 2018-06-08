@@ -2,8 +2,11 @@
 session_start();
 
 require_once("user.php");
+require_once("redirect.php");
+
 
 $forgot = new USER();
+$r= new Redirect();
 
 if(isset($_POST['forgot_btn']))
 {
@@ -11,7 +14,7 @@ if(isset($_POST['forgot_btn']))
 
 	$forgot->email_validation($umail);
 
-	$forgot->redirect('reset_password.php');
+	$r->redirect('reset_password.php');
 }
 
 

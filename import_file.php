@@ -16,7 +16,7 @@ if(isset($_POST["import_btn"]))
 	while(($csv = fgetcsv($file_open, 1000, ",")) !== false)
 	{
 
-		$e_id = $csv[0];
+		$emp_id = $csv[0];
 		$e_name = $csv[1];
 		$e_add = $csv[2];
 		$e_depart = $csv[3];

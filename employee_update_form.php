@@ -1,5 +1,10 @@
 <?php
 require_once("session.php");
+require_once("employee.php");
+
+$eh = new Employee();
+$er=$eh->read();
+$count = count($er);
 ?>
 
 
@@ -30,7 +35,7 @@ require_once("session.php");
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>                        
         </button>
-        <a class="navbar-brand" href="#">Employee Details</a>
+        <a class="navbar-brand" href="#">Employee Details Update</a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
@@ -59,16 +64,24 @@ require_once("session.php");
   <!-- Container Starts  -->
 
   <div class= "d-flex justify-content-center align-items-center container ">
-    <legend><center><h2><b>Product Form</b></h2></center></legend><br>
+    <legend><center><h2><b>Employee Update Form</b></h2></center></legend><br>
 
     <form class="form-horizontal"  method="post" action="employee_update.php">
 
       <div class="form-group">
         <label class="control-label col-sm-2" for="emp_id">Employee Id:</label>
         <div class="col-sm-6">          
-          <input type="number" class="form-control" id="emp_id" placeholder="Emp. Id" name="emp_id">
-        </div>
-      </div>
+          <select class="form-control" id="emp_id" placeholder="Enter Emp. Id you want to update" name="emp_id">
+            <option value=" "> </option>
+
+        <?php
+         for( $i = 0; $i<$count;$i++) {
+            echo '<option value= >' .$er[$i]['emp_id']. '</option>';
+          }
+        ?> 
+      </select>
+    </div>
+  </div>
 
 
       <div class="form-group">

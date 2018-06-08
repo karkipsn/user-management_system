@@ -103,12 +103,6 @@ $row = count($p);
 			});
 		</script>
 		
-		<!--//displays whole table but not other properties of pagination and others
-		 <script>
-			$(document).ready(function(){
-				$('[data-toggle="tooltip"]').tooltip(); 
-			});
-		</script> -->
 	</body>
 	</html>
 

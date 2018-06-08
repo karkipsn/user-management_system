@@ -9,15 +9,27 @@ if(isset($_POST['reset_btn']))
 {
 	$umail = strip_tags($_POST['email']);
 	$upass = strip_tags($_POST['password']);
+	$name = $_SESSION['user_session'];
 
-	
-		if($reset->update_password($umail,$upass)){
-		
-			$reset->redirect('index.php?updated');
+
+	$rest=$reset->update_password($umail,$upass);
+
+		if(!$rest)
+		{
+              $reset->redirect('index.php?failed');
+			
 		}
 		else{
-			$reset->redirect('index.php?failed');
+            $ret = $rest;
+            $hmail = $ret[0];
+            $hpass = $ret[1];
+
+			$reset->log($hmail,$upass,$hpass,$name);
+			$reset->redirect('index.php?updated');
+			
 		}
+
+
 	}
 
 

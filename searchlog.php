@@ -1,19 +1,17 @@
 <?php
 
 require_once("session.php");
-require_once("employee.php");
+require_once("user.php");
 
-$eh = new Employee();
+$eh = new User();
 
-$er=$eh->read();
-$rowCount=count($er);
+
 
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dashboard</title>
+  <title>UpdateLog</title>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,27 +20,16 @@ $rowCount=count($er);
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js">
-  </script>
-
-  
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
-  <!-- for importing buttons features -->
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/dataTables.buttons.min.js"></script>
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.flash.min.js"></script>
-  <!-- For csv button -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-  <!-- For pdf button -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-  <!-- Dependency for html5 buttons -->
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.html5.min.js"></script>
-  <!-- for print button -->
   <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.print.min.js"></script>
-
 
 
 </head>
@@ -60,36 +47,23 @@ $rowCount=count($er);
         </button>
         <a class="navbar-brand" href="#">Employee Details</a>
       </div>
-
       <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav" >
-          <li class="active"><a href="#">Home</a></li>
-
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="home.php">Home</a></li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Employees <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="employee_read_all.php">View Employees</a></li>
               <li><a href="employee_create_form.php">Create</a></li>
               <li><a href="employee_update_form.php">Update</a></li>
-              <li><a href="employee_search.php">Search</a></li>
-              <li><a href="employee_delete.php">Delete</a></li>
-
-            </ul>
-          </li>
-
-          <li><a href="user_home.php">View Users</a></li>
-          <li><a href="import_file_index.php">Import Data</a></li>
-          <li><a href="export_file.php">Export Data</a></li>
-          <li><a href="department_read.php">Department</a></li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Task <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="task_create.php"> Assign Task</a></li>
-              <li><a href="emp_details.php">Employee Details</a></li>
+              <li><a href="#">Delete</a></li>
               
             </ul>
           </li>
-          
+          <li><a href="user_home.php">View Users</a></li>
+          <li><a href="import_file_index.php">Import Data</a></li>
+          <li><a href="#">Export Data</a></li>
+          <li><a href="department_read.php">Department</a></li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Log <span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -101,73 +75,84 @@ $rowCount=count($er);
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="register.php"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li><a href="logout.php?logout=true""><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+          <li><a href="index.php"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
       </div>
     </div>
   </nav>
-  <script >
-    <!-- For hovering the dropdowns in the navigation -->
-    $(document).ready(function() {
-      $('ul.nav li.dropdown').hover(function() {
-        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
-      }, function() {
-        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
-      });
-    });
 
-  </script>
+
 
   <!-- Container Starts  -->
 
-  <div class="container">
-    <table id="toop" class="table table-bordered">
-     <!-- class is accessed from the datatables imported -->
-     <thead>
-       <tr>
-         <th>EMP ID</th>
-         <!-- <th>ItemImage</th> -->
-         <th>EMP Name</th>
-         <th>EMP Add</th>
-         <th>EMP Depart</th>
-         <th>EMP DEP. ID</th>
-         <th>EMP Title</th>
-         <th>EMP DOB</th>
-         <th>EMP DOJ</th>
-       </tr>
-     </thead>
 
-     <tbody>
-      <!-- while ($rowCount=$er->fetch(PDO::FETCH_ASSOC) -->
-      <?php
-      for ($i = 0;$i<$rowCount;$i++){ ?>
-       <tr>
-         <td><?= $er[$i]['emp_id']?></td>
-         <td><?= $er[$i]['e_name']?></td>
-         <td><?= $er[$i]['e_add']?></td>
-         <td><?= $er[$i]['e_depart']?></td>
-         <td><?= $er[$i]['e_dep_id']?></td>
-         <td><?= $er[$i]['e_title']?></td>
-         <td><?= $er[$i]['e_dob']?></td>
-         <td><?= $er[$i]['e_join_date']?></td>
-       </tr>
 
-     <?php } ?>
-   </tbody>
- </table>
-</div>
-<script>
-  $(document).ready(function() {
-    $('#toop').DataTable({
+  <div class= "d-flex justify-content-center align-items-center container ">
+    <legend><center><h2><b>Employee Tasks Searching</b></h2></center></legend><br>
+
+    <form class="form-horizontal"  method="get" action="searchlog.php">
+
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="keyword">user Name:</label>
+        <div class="col-sm-6">          
+          <input type="text" class="form-control" id="keyword" placeholder="Emp. Id" name="keyword">
+        </div>
+      </div>
       
-      dom: 'Bfrtip',
-      buttons: [
-      'excel', 'csv', 'copy','print', 'pdf'
-      ],
 
-    });
-  } );
-</script>
-</body>
-</html>
+      <div class="form-group">        
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit" class="btn btn-default" name="esearch_btn">Submit</button>
+        </div>
+      </form>
+      <table id="toop" class="table table-bordered">
+       <!-- class is accessed from the datatables imported -->
+       <thead>
+         <tr>
+           <th>SESSION</th>
+           <!-- <th>ItemImage</th> -->
+           <th>LOGIN TIME</th>
+           <th>LOGIN PASSWORD</th>
+           <th>EMAIL</th>
+           <th>UPDATED PASSWORD</th>
+           <th>HASHED PASSWORD</th>
+           <th>UPDATED TIME</th>
+         </tr>
+       </thead>
+
+       <tbody>
+         <?php
+
+         $name = $_GET['keyword'];
+         $er=$eh->log_search($name);
+         $count = count($er);
+
+         for( $i = 0; $i<$count;$i++) { ?>
+           <tr>
+             <td><?= $er[$i]['session']?></td>
+             <td><?= $er[$i]['login_time']?></td>
+             <td><?= $er[$i]['login_password']?></td>
+             <td><?= $er[$i]['email']?></td>
+             <td><?= $er[$i]['password']?></td>
+             <td><?= $er[$i]['new_password']?></td>
+             <td><?= $er[$i]['updated_date']?></td>
+           </tr>
+           
+
+         <?php } ?>
+       </tbody>
+     </table>
+   </div>
+   <script>
+     $(document).ready( function () {
+       $('#toop').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+        'excel', 'csv', 'copy','print', 'pdf'
+        ],
+      });
+     });
+   </script>
+ </body>
+ </html>
 
